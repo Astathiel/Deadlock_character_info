@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deadlock — Playable Heroes, Lane Roles & Map Zones Infographic</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Cinzel', 'serif'],
+          },
+          colors: {
+            obsidian: '#0b0e14',
+            charcoal: '#121722',
+            slatecard: '#181f2e',
+            brass: '#d4af37',
+            amberoccult: '#f59e0b',
+            parchment: '#f3efe6',
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background-color: #0b0e14;
+      background-image:
+        radial-gradient(circle at 15% 10%, rgba(212, 175, 55, 0.08), transparent 35%),
+        radial-gradient(circle at 85% 20%, rgba(56, 189, 248, 0.07), transparent 40%),
+        radial-gradient(circle at 50% 90%, rgba(168, 85, 247, 0.07), transparent 45%);
+      color: #f3efe6;
+    }
+    .deco-border {
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.65);
+    }
+  </style>
+</head>
+<body class="min-h-screen font-sans antialiased selection:bg-amber-500/30 selection:text-amber-200">
+
+  <!-- Main Container -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+
+    <!-- Infographic Header -->
+    <header class="rounded-2xl bg-charcoal/90 deco-border p-6 sm:p-8 mb-8 relative overflow-hidden">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+        <div>
+          <div class="flex flex-wrap items-center gap-2 mb-3">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold tracking-wider uppercase">
+              <span id="sync-dot" class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+              <span id="sync-status-text">The Cursed Apple • Live Ranked Telemetry (Patch 2026-11-04)</span>
+            </div>
+            <button
+              onclick="syncDailyTelemetry(true)"
+              class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/40 text-sky-300 text-xs font-semibold transition-all"
+              title="Trigger live sync from /api/meta or Deadlock open telemetry"
+            >
+              <span>↻ Sync Live Data</span>
+            </button>
+            <button
+              onclick="toggleVercelModal(true)"
+              class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-300 text-xs font-semibold transition-all"
+            >
+              <span>▲ Vercel 24h Auto-Sync Setup</span>
+            </button>
+          </div>
+          <h1 class="font-display text-2xl sm:text-4xl font-extrabold tracking-tight text-parchment">
+            DEADLOCK HEROES, ROLES &amp; PLAYER META
+          </h1>
+          <p class="mt-2 text-sm sm:text-base text-slate-300 max-w-3xl">
+            All <span class="text-amber-300 font-semibold">44 playable characters</span> sorted by their played lane roles, map zones (<span class="text-yellow-300 font-medium">Yellow/Green Side</span>, <span class="text-sky-300 font-medium">Blue Mid</span>, <span class="text-emerald-300 font-medium">Jungle/Roam</span>), character characteristics from <span class="text-amber-200 font-medium">deadlock.one</span>, and live Ranked player telemetry from <span class="text-sky-300 font-medium">Tracklock.gg</span> &amp; <span class="text-rose-300 font-medium">Deadlocked.gg</span> (164,734+ ranked matches).
+          </p>
+        </div>
+
+        <!-- Telemetry Summary Badges -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-3 shrink-0">
+          <div class="rounded-xl bg-slatecard/90 border border-slate-700/70 px-3.5 py-2.5">
+            <div class="text-[11px] uppercase tracking-wider text-slate-400">Highest WR (Ranked)</div>
+            <div id="stat-highest-wr" class="text-sm font-bold text-amber-300 mt-0.5">Baba • 56.47% (S)</div>
+            <div id="stat-highest-wr-sub" class="text-[11px] text-emerald-400">59.3% 30d Deadlocked</div>
+          </div>
+          <div class="rounded-xl bg-slatecard/90 border border-slate-700/70 px-3.5 py-2.5">
+            <div class="text-[11px] uppercase tracking-wider text-slate-400">S+ Meta Defining</div>
+            <div id="stat-splus-list" class="text-sm font-bold text-rose-300 mt-0.5">Graves • Seven • Paige</div>
+            <div class="text-[11px] text-slate-400">High WR + 34–39% Pick</div>
+          </div>
+          <div class="rounded-xl bg-slatecard/90 border border-slate-700/70 px-3.5 py-2.5">
+            <div class="text-[11px] uppercase tracking-wider text-slate-400">Most Picked Hero</div>
+            <div id="stat-most-picked" class="text-sm font-bold text-sky-300 mt-0.5">Haze • 53.77% PR</div>
+            <div id="stat-most-picked-sub" class="text-[11px] text-slate-400">52.70% WR (S Tier)</div>
+          </div>
+          <div class="rounded-xl bg-slatecard/90 border border-slate-700/70 px-3.5 py-2.5">
+            <div class="text-[11px] uppercase tracking-wider text-slate-400">Last Telemetry Sync</div>
+            <div id="stat-last-sync" class="text-sm font-bold text-emerald-300 mt-0.5">Daily Snapshot</div>
+            <div id="stat-sync-source" class="text-[11px] text-emerald-400">Auto-refreshes every 24h</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map & Lane Meta Explainer Bar -->
+      <div class="mt-6 pt-5 border-t border-slate-800/90 grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+        <div class="rounded-xl bg-yellow-500/10 border border-yellow-500/30 p-3 flex items-start gap-3">
+          <span class="px-2 py-1 rounded bg-yellow-500/20 text-yellow-300 font-bold shrink-0">YELLOW / GREEN</span>
+          <div>
+            <div class="font-semibold text-yellow-200">Outer Side Lanes (York &amp; Greenwich)</div>
+            <p class="text-slate-300 mt-0.5">Longer, isolated lanes favored by 1v1 duelists, split-pushers, snipers, and Soul Urn controllers after the ~8m laning phase.</p>
+          </div>
+        </div>
+        <div class="rounded-xl bg-sky-500/10 border border-sky-500/30 p-3 flex items-start gap-3">
+          <span class="px-2 py-1 rounded bg-sky-500/20 text-sky-300 font-bold shrink-0">BLUE (MID)</span>
+          <div>
+            <div class="font-semibold text-sky-200">Central Broadway Lane</div>
+            <p class="text-slate-300 mt-0.5">Shortest rotation distance to both side lanes and Mid-Boss. Anchored by frontline bruisers, AoE teamfighters, and duo-lane supports.</p>
+          </div>
+        </div>
+        <div class="rounded-xl bg-emerald-500/10 border border-emerald-500/30 p-3 flex items-start gap-3">
+          <span class="px-2 py-1 rounded bg-emerald-500/20 text-emerald-300 font-bold shrink-0">JUNGLE / ROAM</span>
+          <div>
+            <div class="font-semibold text-emerald-200">Neutral Denizens, Sinners &amp; Gank Routes</div>
+            <p class="text-slate-300 mt-0.5">No hero jungles at 0:00 (everyone starts 2v2), but hypercarries and assassins transition into power-farming camps &amp; ganking between waves.</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Interactive Controls Bar -->
+    <section class="rounded-2xl bg-charcoal/90 border border-slate-800 p-4 sm:p-5 mb-8 sticky top-3 z-30 backdrop-blur-md shadow-2xl">
+      <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+        <!-- Grouping Mode Buttons -->
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-xs font-semibold uppercase tracking-wider text-slate-400 mr-1">Group By:</span>
+          <button onclick="setGroupBy('laneRole')" id="btn-group-laneRole" class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-amber-500 text-slate-950 shadow">
+            Played Lane Role
+          </button>
+          <button onclick="setGroupBy('mapZone')" id="btn-group-mapZone" class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-slatecard text-slate-300 hover:bg-slate-800 border border-slate-700">
+            Map Zone (Yellow/Green • Blue • Jungle)
+          </button>
+          <button onclick="setGroupBy('tier')" id="btn-group-tier" class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-slatecard text-slate-300 hover:bg-slate-800 border border-slate-700">
+            Player Meta Tier (Tracklock / Deadlocked)
+          </button>
+          <button onclick="setGroupBy('heroClass')" id="btn-group-heroClass" class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-slatecard text-slate-300 hover:bg-slate-800 border border-slate-700">
+            Hero Archetype
+          </button>
+        </div>
+
+        <!-- Search & Sort Controls -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <div class="relative flex-1 sm:w-64">
+            <input
+              id="search-input"
+              type="text"
+              oninput="handleSearch(this.value)"
+              placeholder="Search hero, trait (e.g. Disruptive), lane..."
+              class="w-full rounded-xl bg-obsidian border border-slate-700 px-3.5 py-2 text-xs sm:text-sm text-parchment placeholder-slate-500 focus:outline-none focus:border-amber-400"
+            />
+            <button id="clear-search" onclick="clearFilters()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-[11px] px-2 py-0.5 rounded bg-slate-800 text-amber-300 hover:bg-slate-700">
+              Clear
+            </button>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <label for="sort-select" class="text-xs font-semibold uppercase tracking-wider text-slate-400 shrink-0">Sort Cards:</label>
+            <select id="sort-select" onchange="setSortBy(this.value)" class="rounded-xl bg-obsidian border border-slate-700 px-3 py-2 text-xs sm:text-sm text-parchment focus:outline-none focus:border-amber-400">
+              <option value="winRate">Win Rate (High → Low)</option>
+              <option value="pickRate">Pick Rate (Popular → Niche)</option>
+              <option value="tier">Meta Tier (S+ → D)</option>
+              <option value="name">Alphabetical (A → Z)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Active Trait Filter Pill -->
+      <div id="active-filter-banner" class="hidden mt-3 pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
+        <div class="flex items-center gap-2">
+          <span class="text-slate-400">Filtering by characteristic/search:</span>
+          <span id="active-filter-text" class="px-2.5 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 font-semibold"></span>
+        </div>
+        <button onclick="clearFilters()" class="text-amber-300 hover:underline font-medium">Reset Filter</button>
+      </div>
+    </section>
+
+    <!-- Dynamic Groups Container -->
+    <main id="groups-container" class="space-y-10"></main>
+
+    <!-- Footer Note on Data Sources -->
+    <footer class="mt-12 rounded-2xl bg-charcoal/80 border border-slate-800 p-6 text-xs text-slate-400 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div>
+        <div class="font-semibold text-parchment mb-1">Data Sources &amp; Vercel Daily Auto-Refresh Architecture</div>
+        <p>
+          Hero roster &amp; three-word character traits sourced from <span class="text-amber-300">deadlock.one/en/heroes</span>. Ranked Win Rates, Pick Rates, and Meta Tiers (`S+` through `D`) compiled from live player match telemetry on <span class="text-sky-300">Tracklock.gg</span> and <span class="text-rose-300">Deadlocked.gg</span>. Automatically refreshes daily on Vercel via <code class="text-emerald-300">/api/meta</code> Edge Caching (<code class="text-slate-300">s-maxage=86400</code>).
+        </p>
+      </div>
+      <div class="shrink-0 flex items-center gap-3">
+        <button onclick="toggleVercelModal(true)" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-emerald-300 font-semibold transition-all">
+          View Vercel Backend Code
+        </button>
+        <span class="inline-block px-3 py-1.5 rounded-lg bg-slatecard border border-slate-700 text-slate-300 font-medium">
+          44 / 44 Playable Heroes Indexed
+        </span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Vercel Daily Auto-Sync Setup & Code Modal -->
+  <div id="vercel-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-charcoal border border-amber-500/40 rounded-2xl max-w-4xl w-full p-5 sm:p-7 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex items-start justify-between gap-4 pb-4 border-b border-slate-800">
+        <div>
+          <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-[11px] font-bold uppercase tracking-wider">
+            Zero-Database Vercel Automation
+          </span>
+          <h2 class="font-display text-xl sm:text-2xl font-bold text-parchment mt-1">
+            How to Auto-Refresh Tracklock.gg &amp; Deadlocked.gg Data Daily on Vercel
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-300 mt-1">
+            This HTML file is already wired to fetch <code class="text-amber-300">/api/meta</code> on load. By adding the single Serverless Function below to your Vercel repo, Vercel's CDN will scrape Tracklock.gg &amp; Deadlocked.gg once every 24 hours (`s-maxage=86400`) and serve fresh stats to all visitors automatically!
+          </p>
+        </div>
+        <button onclick="toggleVercelModal(false)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold">
+          ✕ Close
+        </button>
+      </div>
+
+      <!-- Architecture Steps -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 my-5 text-xs">
+        <div class="rounded-xl bg-slatecard border border-slate-800 p-3.5">
+          <div class="font-bold text-amber-300 mb-1">1. Folder Structure</div>
+          <p class="text-slate-300">Place this HTML file as <code class="text-white">index.html</code> in your project root, and create <code class="text-emerald-300">api/meta.js</code> plus <code class="text-sky-300">vercel.json</code>.</p>
+        </div>
+        <div class="rounded-xl bg-slatecard border border-slate-800 p-3.5">
+          <div class="font-bold text-sky-300 mb-1">2. 24h Edge Cache (No DB Needed)</div>
+          <p class="text-slate-300">Using <code class="text-white">Cache-Control: s-maxage=86400, stale-while-revalidate=3600</code> caches the scraped JSON at Vercel's Edge for 24 hours.</p>
+        </div>
+        <div class="rounded-xl bg-slatecard border border-slate-800 p-3.5">
+          <div class="font-bold text-emerald-300 mb-1">3. Daily Vercel Cron</div>
+          <p class="text-slate-300">The <code class="text-white">vercel.json</code> cron hits <code class="text-emerald-300">/api/meta</code> every day at 06:00 UTC so even the first visitor gets instant cached data.</p>
+        </div>
+      </div>
+
+      <!-- File 1: api/meta.js -->
+      <div class="mb-5">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-300">File 1: <code class="bg-obsidian px-2 py-0.5 rounded border border-slate-700">api/meta.js</code> (Vercel Serverless Scraper)</span>
+          <button onclick="copySnippet('snippet-api-meta', this)" class="px-3 py-1 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold transition-all">
+            Copy api/meta.js
+          </button>
+        </div>
+        <pre id="snippet-api-meta" class="rounded-xl bg-obsidian border border-slate-800 p-4 text-[11px] text-slate-200 overflow-x-auto leading-relaxed"><code>// api/meta.js — Vercel Serverless Function (Node.js 20+)
+// Fetches Tracklock.gg & Deadlocked.gg daily and caches at Vercel Edge for 24 hours.
+
+export default async function handler(req, res) {
+  try {
+    const [tracklockRes, deadlockedRes] = await Promise.allSettled([
+      fetch("https://tracklock.gg/heroes-tier-list", {
+        headers: { "User-Agent": "Mozilla/5.0 (compatible; DeadlockInfographicBot/1.0)" }
+      }),
+      fetch("https://deadlocked.gg/", {
+        headers: { "User-Agent": "Mozilla/5.0 (compatible; DeadlockInfographicBot/1.0)" }
+      })
+    ]);
+
+    const heroes = {};
+
+    // 1. Parse Tracklock.gg Ranked Table rows (Hero, Tier, Win Rate,WR Delta, Pick Rate)
+    if (tracklockRes.status === "fulfilled" && tracklockRes.value.ok) {
+      const html = await tracklockRes.value.text();
+      const text = html.replace(/&lt;[^&gt;]+&gt;/g, " ").replace(/\s+/g, " ");
+      // Matches patterns like: "Graves S+ 55.13% +0.07% +0.07% 39.26%"
+      const rowRegex = /([A-Z][a-zA-Z0-9 &amp;'-]+?)\s+(S\+|S|A|B|C|D)\s+(\d{2}\.\d{2})%\s+([+-]\d+\.\d{2}%)\s+[+-]\d+\.\d{2}%\s+(\d{1,2}\.\d{2})%/g;
+      let match;
+      while ((match = rowRegex.exec(text)) !== null) {
+        const name = match[1].trim();
+        heroes[name] = {
+          tier: match[2],
+          winRate: parseFloat(match[3]),
+          wrDelta: match[4],
+          pickRate: parseFloat(match[5])
+        };
+      }
+    }
+
+    // 2. Parse Deadlocked.gg 30d Win Rate Trends
+    if (deadlockedRes.status === "fulfilled" && deadlockedRes.value.ok) {
+      const dlHtml = await deadlockedRes.value.text();
+      const dlText = dlHtml.replace(/&lt;[^&gt;]+&gt;/g, " ").replace(/\s+/g, " ");
+      const dlRegex = /([A-Z][a-zA-Z0-9 &amp;'-]+?)\s+(S\+|S|A|B|C|D)\s*(\d{2}\.\d)%\s*([▲▼]\s*[+-]?\d+\.\d%)/g;
+      let m;
+      while ((m = dlRegex.exec(dlText)) !== null) {
+        const name = m[1].trim();
+        if (heroes[name]) {
+          heroes[name].deadlockedWR = parseFloat(m[3]);
+          heroes[name].note = `Deadlocked 30d: ${m[3]}% (${m[4]})`;
+        }
+      }
+    }
+
+    // Cache on Vercel CDN Edge for 24 hours (86400s), revalidate in background
+    res.setHeader("Cache-Control", "public, s-maxage=86400, stale-while-revalidate=3600");
+    return res.status(200).json({
+      updatedAt: new Date().toISOString(),
+      source: "Tracklock.gg + Deadlocked.gg (Vercel 24h Edge Cache)",
+      heroes
+    });
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+}</code></pre>
+      </div>
+
+      <!-- File 2: vercel.json -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-bold uppercase tracking-wider text-sky-300">File 2: <code class="bg-obsidian px-2 py-0.5 rounded border border-slate-700">vercel.json</code> (Daily Cron Schedule)</span>
+          <button onclick="copySnippet('snippet-vercel-json', this)" class="px-3 py-1 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-bold transition-all">
+            Copy vercel.json
+          </button>
+        </div>
+        <pre id="snippet-vercel-json" class="rounded-xl bg-obsidian border border-slate-800 p-4 text-[11px] text-slate-200 overflow-x-auto leading-relaxed"><code>{
+  "crons": [
+    {
+      "path": "/api/meta",
+      "schedule": "0 6 * * *"
+    }
+  ]
+}</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast-msg" class="hidden fixed bottom-5 right-5 z-50 px-4 py-2.5 rounded-xl bg-charcoal border border-amber-500/50 text-amber-200 text-xs font-semibold shadow-2xl"></div>
+
+  <!-- Application Script -->
+  <script>
+    // Complete 44-Hero Roster with deadlock.one Traits, Map Zones, and Tracklock.gg + Deadlocked.gg Ranked Telemetry
+    const HEROES_DATA = [
+      // S+ TIER META GODS
+      {
+        name: "Graves",
+        slug: "graves",
+        traits: ["Gravedigger", "Necromancer", "Relentless"],
+        laneRole: "Carry / Core Damage",
+        mapZone: "Jungle / Roam & Mid",
+        laneBadge: "Jungle / Blue",
+        laneDetail: "Starts 2v2 lane, transitions to power-farming neutral Denizen camps and dominating mid-game skirmishes.",
+        heroClass: "Mystic",
+        tier: "S+",
+        winRate: 55.13,
+        wrDelta: "+0.07%",
+        pickRate: 39.26,
+        deadlockedWR: 55.7,
+        note: "Deadlocked 30d: 55.7% WR (▲+0.5%) • Top S+ Pick"
+      },
+      {
+        name: "Seven",
+        slug: "seven",
+        traits: ["Calculated", "Shocking", "Destructive"],
+        laneRole: "Carry / Core Damage",
+        mapZone: "Jungle / Roam & Mid",
+        laneBadge: "Jungle / Blue",
+        laneDetail: "Premier hypercarry farmer; clears Tier-3 jungle camps & Sinner's Sacrifice between Blue/Side waves.",
+        heroClass: "Mystic",
+        tier: "S+",
+        winRate: 54.71,
+        wrDelta: "+1.23%",
+        pickRate: 34.35,
+        deadlockedWR: 54.9,
+        note: "Deadlocked 30d: 54.9% WR (▲+1.6%) • S+ Hypercarry"
+      },
+      {
+        name: "Paige",
+        slug: "paige",
+        traits: ["Bookworm", "Enchanter", "Supportive"],
+        laneRole: "Support / Duo Enabler",
+        mapZone: "Blue (Mid Lane)",
+        laneBadge: "Blue (Mid Duo)",
+        laneDetail: "Anchors the central Broadway duo lane to rotate shields and buffs rapidly to either side objective.",
+        heroClass: "Support",
+        tier: "S+",
+        winRate: 54.07,
+        wrDelta: "-0.78%",
+        pickRate: 38.40,
+        deadlockedWR: 54.3,
+        note: "Deadlocked Featured S-Build • 54.3% WR / 38% Pick"
+      },
+
+      // S TIER LEADERS
+      {
+        name: "Baba",
+        slug: "baba",
+        traits: ["Cursed", "Occult", "Hexing"],
+        laneRole: "Flex / Frontline & Control",
+        mapZone: "Blue (Mid Lane)",
+        laneBadge: "Blue / Jungle",
+        laneDetail: "Controls central choke points and river/bridge rotations with oppressive area denial.",
+        heroClass: "Mystic",
+        tier: "S",
+        winRate: 56.47,
+        wrDelta: "-1.46%",
+        pickRate: 8.23,
+        deadlockedWR: 59.3,
+        note: "#1 Overall Win Rate (56.47% Tracklock / 59.3% Deadlocked)"
+      },
+      {
+        name: "Kelvin",
+        slug: "kelvin",
+        traits: ["Freezing", "Expeditionary", "Protective"],
+        laneRole: "Support / Duo Enabler",
+        mapZone: "Blue (Mid Lane)",
+        laneBadge: "Blue / Roam",
+        laneDetail: "Uses Ice Path to cross between Blue Mid and Yellow/Green side lanes in seconds; elite Frozen Shelter saves.",
+        heroClass: "Support",
+        tier: "S",
+        winRate: 55.05,
+        wrDelta: "+0.02%",
+        pickRate: 20.41,
+        deadlockedWR: 55.2,
+        note: "24h Momentum ▲+1.7% • 55.2% WR on Deadlocked"
+      },
+      {
+        name: "Victor",
+        slug: "victor",
+        traits: ["Unstoppable", "Reanimated", "Electrifying"],
+        laneRole: "Flex / Frontline & Control",
+        mapZone: "Blue (Mid Lane)",
+        laneBadge: "Blue (Mid Frontline)",
+        laneDetail: "Thrives in 3v3/6v6 Broadway brawls where his frontline durability and shock aura hit multiple enemies.",
+        heroClass: "Brawler",
+        tier: "S",
+        winRate: 53.07,
+        wrDelta: "-0.67%",
+        pickRate: 30.74,
+        deadlockedWR: 53.2,
+        note: "Top Frontline Brawler • 30.74% Pick Rate"
+      },
+      {
+        name: "Haze",
+        slug: "haze",
+        traits: ["Stealthy", "Focused", "Lethal"],
+        laneRole: "Carry / Core Damage",
+        mapZone: "Jungle / Roam & Mid",
+        laneBadge: "Jungle / Gank",
+        laneDetail: "Stalks jungle corridors with Smoke Bomb to pick off solo side-laners and power-farms neutral camps.",
+        heroClass: "Assassin",
+        tier: "S",
+        winRate: 52.70,
+        wrDelta: "+0.55%",
+        pickRate: 53.77,
+        deadlockedWR: 53.5,
+        note: "#1 Most Picked Hero in Deadlock (53.77% PR)"
+      },
+      {
+        name: "Lash",
+        slug: "lash",
+        traits: ["Aerial", "Arrogant", "Relentless"],
+        laneRole: "Flex / Frontline & Control",
+        mapZone: "Blue (Mid Lane)",
+        laneBadge: "Blue / Rooftop Roam",
+        laneDetail: "Abuses tall central Broadway rooftops for massive Death Slam engages and instant side-lane ganks.",
+        heroClass: "Brawler",
+        tier: "S",
+        winRate: 51.93,
+        wrDelta: "+0.24%",
+        pickRate: 44.37,
+        deadlockedWR: 52.1,
+        note: "44.37% Pick Rate • Premier Mid-Boss Initiator"
+      },
+
+      // A TIER CONTENDERS
+      {
+        name: "Lady Geist",
+        slug: "lady-geist",
+        traits: ["Aristocratic", "Draining", "Ruthless"],
+        laneRole: "Carry / Core Damage",
+        mapZone: "Yellow / Green (Side Lanes)",
+        laneBadge: "Yellow / Green Solo",
+        laneDetail: "Dominates isolated outer lanes post-8m; impossible to dive 1v1 due to Soul Exchange ultimate.",
+        heroClass: "Mystic",
+        tier: "A",
+        winRate: 53.21,
+        wrDelta: "+1.82%",
+        pickRate: 28.48,
+        deadlockedWR: 53.5,
+        note: "Patch Pulse Climber: ▲+3.6% vs 30d avg"
+      },
+      {
+        name: "Ivy",
+        slug: "ivy",
+        traits: ["Gargoyle", "Loyal", "Aerial"],
+        laneRole: "Support / Duo Enabler",
+        mapZone: "Yellow / Green (Side Lanes)",
+        laneBadge: "Side Push / Air Drop",
+        laneDetail: "Pushes outer Yellow/Green waves safely and uses Air Drop to fly an ally straight into a Blue Mid fight.",
+        heroClass: "Support",
+        tier: "A",
+        winRate: 52.81,
+        wrDelta: "+0.10%",
+        pickRate: 28.90,
+        deadlockedWR: 53.5,
+        note: "Elite Soul Urn Runner & Duo Tether Support"
+      },
+      {
+        name: "Deadman Danny",
+        slug: "deadman-danny",
+        traits: ["Outlaw", "Volatile", "Vengeful"],
+        laneRole: "Carry / Core Damage",
+        mapZone: "Yellow / Green (Side Lanes)",
+        laneBadge: "Yellow / Green",
+        laneDetail: "Strong side-lane duelist who pressures Walkers and punishes overextended defenders.",
+        heroClass: "Marksman",
+        tier: "A",
+        winRate: 52.80,
+        wrDelta: "-1.48%",
+        pickRate: 17.36,
+        deadlockedWR: 53.1,
+        note: "#1 Patch Climber on Deadlocked (▲+6.1% vs 30d)"
+      },
+      {
+        name: "Rat King",
+        slug: "rat-king",
+        traits: ["Swarming", "Filthy", "Cunning"],
+        laneRole: "Flex / Frontline & Control",
+        mapZone: "Jungle / Roam & Mid",
+        laneBadge: "Jungle / Underground",
+        laneDetail: "Controls tight underground tunnels, neutral camps, and Sinner's Sacrifice rooms.",
+        heroClass: "Mystic",
+        tier: "A",
+        winRate: 52.77,
+        wrDelta: "+1.90%",
+        pickRate: 25.03,
+        deadlockedWR: 52.3,
+        note: "High Win Rate Jungle/Objective Controller"
+      },
+      {
+        name: "Abrams",
+        slug: "abrams",
+        traits: ["Detective", "Charging", "Regenerating"],
+        laneRole: "Flex / Frontline & Control",
+        mapZone: "Blue (Mid Lane)",
+        laneBadge: "Blue (Mid Brawler)",
+        laneDetail: "Frontlines central lane skirmishes and tight indoor corridors where Shoulder Charge pins are guaranteed.",
+        heroClass: "Brawler",
+        tier: "A",
+        winRate: 52.36,
+        wrDelta: "-1.39%",
+        pickRate: 38.57,
+        deadlockedWR: 52.5,
+        note: "Staple Melee Frontliner • 38.57% Pick Rate"
+      },
+      {
+        name: "Dynamo",
+        slug: "dynamo",
+        traits: ["Professor", "Gravitational", "Supportive"],
+        laneRole: "Support / Duo Enabler",
+        mapZone: "Blue (Mid Lane)",
+        laneBadge: "Blue (Mid Duo)",
+        laneDetail: "Stays central for Mid-Boss pit and Rejuvenator fights where Singularity wins games on the spot.",
+        heroClass: "Support",
+        tier: "A",
+        winRate: 52.31,
+        wrDelta: "+1.01%",
+        pickRate: 26.04,
+        deadlockedWR: 52.4,
+        note: "Premier Teamfight Support (+1.01% WR this patch)"
+      },
+      {
+        name: "Apollo",
+        slug: "apollo",
+        traits: ["Radiant", "Charismatic", "Blinding"],
+        laneRole: "Carry / Core Damage",
+        mapZone: "Blue (Mid Lane)",
+        laneBadge: "Blue / Yellow",
+        laneDetail: "High-tempo mid-range carry thriving in central skirmishes and early Guardian sieges.",
+        heroClass: "Marksman",
+        tier: "A",
+        winRate: 51.77,
+        wrDelta: "+1.00%",
+        pickRate: 24.59,
+        deadlockedWR: 51.9,
+        note: "Surging Pick Rate (+5.77% PR increase)"
+      },
+      {
+        name: "Wraith",
+        slug: "wraith",
+        traits: ["Telekinetic", "Cardsharp", "Elusive"],
+        laneRole: "Carry / Core Damage",
+        mapZone: "Yellow / Green (Side Lanes)",
+        laneBadge: "Yellow / Green Split",
+        laneDetail: "Classic side-lane split-pusher; melts Walkers in seconds and escapes or locks down 1v1 targets with Telekinesis.",
+        heroClass: "Marksman",
+        tier: "A",
+        winRate: 50.86,
+        wrDelta: "+0.41%",
+        pickRate: 43.53,
+        deadlockedWR: 51.0,
+        note: "Top Side-Lane Split Pusher (43.53% Pick Rate)"
+      },
+      {
+        name: "Drifter",
+        slug: "drifter",
+        traits: ["Nomadic", "Scrappy", "Opportunistic"],
+        laneRole: "Flex / Frontline & Control",
+        mapZone: "Jungle / Roam & Mid",
+        laneBadge: "Jungle / Roam",
+        laneDetail: "Constantly roams between lanes, invading enemy jungle camps and skirmishing over Soul Urn.",
+        heroClass: "Assassin",
+        tier: "A",
+        winRate: 50.34,
+        wrDelta: "-1.55%",
+        pickRate: 47.13,
+        deadlockedWR: 50.5,
+        note: "#2 Most Popular Hero (47.13% Pick Rate)"
+      },
+
+      // B TIER BALANCED / SPECIALISTS
+      {
+        name: "McGinnis",
+        slug: "mcginnis",
+        traits: ["Inventor", "Fortified", "Relentless"],
+        laneRole: "Support / Duo Enabler",
+        mapZone: "Yellow / Green (Side Lanes)",
+        laneBadge: "Yellow / Green Siege",
+        laneDetail: "Locks down outer lanes with turrets and Spectral Wall, relentlessly sieging Guardians and Walkers.",
+        heroClass: "Support",
+        tier: "B",
+        winRate: 51.14,
+        wrDelta: "+0.66%",
+        pickRate: 14.89,
+        deadlockedWR: 51.2,
+        note: "Objective Siege & Zone Control Specialist"
+      },
+      {
+        name: "Billy",
+        slug: "billy",
+        traits: ["Reckless", "Brawler", "scrappy"],
+        laneRole: "Flex / Frontline & Control",
+        mapZone: "Blue (Mid Lane)",
+        laneBadge: "Blue / Side",
+        laneDetail: "Aggressive close-range bruiser who excels in chaotic early-to-mid game street brawls.",
+        heroClass: "Brawler",
+        tier: "B",
+        winRate: 50.71,
+        wrDelta: "-0.04%",
+        pickRate: 33.19,
+        deadlockedWR: 50.8,
+        note: "Solid 33.19% Pick Rate Frontliner"
+      },
+      {
+        name: "Calico",
+        slug: "calico",
+        traits: ["Feline", "Silent", "Pouncing"],
+        laneRole: "Carry / Core Damage",
+        mapZone: "Jungle / Roam & Mid",
+        laneBadge: "Jungle / Gank",
+        laneDetail: "Prowls jungle rooftops and transit lines to ambush squishy carries rotating between lanes.",
+        heroClass: "Assassin",
+        tier: "B",
+        winRate: 50.39,
+        wrDelta: "-0.68%",
+        pickRate: 19.46,
+        deadlockedWR: 50.4,
+        note: "Stealth Roamer & Backline Assassin"
+      },
+      {
+        name: "Vindicta",
+        slug: "vindicta",
+        traits: ["Sniping", "Airborne", "Vengeful"],
+        laneRole: "Carry / Core Damage",
+        mapZone: "Yellow / Green (Side Lanes)",
+        laneBadge: "Yellow / Green Sightlines",
+        laneDetail: "Favors long open sightlines in outer lanes and high rooftops to execute low-HP targets with Assassinate.",
+        heroClass: "Marksman",
+        tier: "B",
+        winRate: 50.37,
+        wrDelta: "-0.89%",
+        pickRate: 31.18,
+        deadlockedWR: 50.4,
+        note: "Aerial Sniper • Bonus Souls on Execute"
+      },
+      {
+        name: "Vyper",
+        slug: "vyper",
+        traits: ["Venomous", "Slithering", "Relentless"],
+        laneRole: "Carry / Core Damage",
+        mapZone: "Jungle / Roam & Mid",
+        laneBadge: "Jungle / Side",
+        laneDetail: "High-velocity slide-gunner who shreds neutral objectives and chases down isolated side-laners.",
+        heroClass: "Marksman",
+        tier: "B",
+        winRate: 50.06,
+        wrDelta: "-0.39%",
+        pickRate: 13.61,
+        deadlockedWR: 50.1,
+        note: "High-Tempo Slide Mobility Carry"
+      },
+      {
+        name: "Warden",
+        slug: "warden",
+        traits: ["Vigilant", "Unyielding", "alchemical"],
+        laneRole: "Flex / Frontline & Control",
+        mapZone: "Blue (Mid Lane)",
+        laneBadge: "Blue / Roam",
+        laneDetail: "Patrols central lanes with Binding Word traps and Last Stand sustain during teamfights.",
+        heroClass: "Brawler",
+        tier: "B",
+        winRate: 50.05,
+        wrDelta: "+0.21%",
+        pickRate: 19.63,
+        deadlockedWR: 50.5,
+        note: "Deadlocked 24h Momentum Leader (▲+2.0%)"
+      },
+      {
+        name: "Solomon",
+        slug: "solomon",
+        traits: ["Stoic", "Judicious", "Mystical"],
+        laneRole: "Flex / Frontline & Control",
+        mapZone: "Blue (Mid Lane)",
+        laneBadge: "Blue (Mid Control)",
+        laneDetail: "Methodical mid-lane controller who punishes dive comps and anchors objective fights.",
+        heroClass: "Mystic",
+        tier: "B",
+        winRate: 49.60,
+        wrDelta: "+0.94%",
+        pickRate: 8.23,
+        deadlockedWR: 49.4,
+        note: "Patch Pulse Climber: ▲+4.3% vs 30d avg"
+      },
+      {
+        name: "Holliday",
+        slug: "holliday",
+        traits: ["Sharpshooter", "Acrobatic", "Explosive"],
+        laneRole: "Carry / Core Damage",
+        mapZone: "Yellow / Green (Side Lanes)",
+        laneBadge: "Yellow / Green / Roam",
+        laneDetail: "Uses bounce pads to traverse side lanes rapidly, setting up Powder Keg combos and Lasso picks.",
+        heroClass: "Marksman",
+        tier: "B",
+        winRate: 49.55,
+        wrDelta: "-0.26%",
+        pickRate: 26.39,
+        deadlockedWR: 49.6,
+        note: "High Skill-Ceiling Bounce-Pad Marksman"
+      },
+      {
+        name: "Yamato",
+        slug: "yamato",
+        traits: ["Samurai", "Lethal", "Unstoppable"],
+        laneRole: "Carry / Core Damage",
+        mapZone: "Yellow / Green (Side Lanes)",
+        laneBadge: "Yellow / Green Duelist",
+        laneDetail: "Fierce 1v1 side-lane duelist; uses Shadow Transformation to tower-dive or win outnumbered side skirmishes.",
+        heroClass: "Assassin",
+        tier: "B",
+        winRate: 49.12,
+        wrDelta: "+0.72%",
+        pickRate: 26.72,
+        deadlockedWR: 49.2,
+        note: "Premier Side-Lane Melee/Spirit Duelist"
+      },
+      {
+        name: "Nurse Harrow",
+        slug: "nurse-harrow",
+        traits: ["Clinical", "Surgical", "Tormenting"],
+        laneRole: "Support / Duo Enabler",
+        mapZone: "Blue (Mid Lane)",
+        laneBadge: "Blue (Mid Duo)",
+        laneDetail: "Sustains frontline brawlers in duo lanes while applying debilitating status effects to enemy tanks.",
+        heroClass: "Support",
+        tier: "B",
+        winRate: 49.12,
+        wrDelta: "+1.33%",
+        pickRate: 16.96,
+        deadlockedWR: 49.3,
+        note: "Rising Support (+1.33% WR, +3.14% PR)"
+      },
+      {
+        name: "Silver",
+        slug: "silver",
+        traits: ["Mercurial", "Precision", "Sleek"],
+        laneRole: "Carry / Core Damage",
+        mapZone: "Yellow / Green (Side Lanes)",
+        laneBadge: "Yellow / Green",
+        laneDetail: "Scales cleanly in outer lanes with long-range poke and mobile kiting.",
+        heroClass: "Marksman",
+        tier: "B",
+        winRate: 48.81,
+        wrDelta: "+0.45%",
+        pickRate: 23.79,
+        deadlockedWR: 48.9,
+        note: "Consistent Side-Lane Marksman"
+      },
+      {
+        name: "Bebop",
+        slug: "bebop",
+        traits: ["Mechanical", "Hooking", "Explosive"],
+        laneRole: "Flex / Frontline & Control",
+        mapZone: "Blue (Mid Lane)",
+        laneBadge: "Blue (Mid Pick)",
+        laneDetail: "Plays central lane to fish for game-changing Hooks under Guardians and stack Sticky Bomb damage.",
+        heroClass: "Brawler",
+        tier: "B",
+        winRate: 47.52,
+        wrDelta: "-0.30%",
+        pickRate: 47.06,
+        deadlockedWR: 47.6,
+        note: "#3 Most Picked Hero (47.06% PR)"
+      },
+      {
+        name: "Infernus",
+        slug: "infernus",
+        traits: ["Blazing", "Fast", "Scorching"],
+        laneRole: "Carry / Core Damage",
+        mapZone: "Jungle / Roam & Mid",
+        laneBadge: "Side / Jungle Powerfarm",
+        laneDetail: "Uses Flame Dash to flash-farm neutral jungle camps between Yellow/Green waves and apply Afterburn in teamfights.",
+        heroClass: "Marksman",
+        tier: "B",
+        winRate: 47.32,
+        wrDelta: "-0.46%",
+        pickRate: 46.32,
+        deadlockedWR: 46.9,
+        note: "Deadlocked Featured Build • 46.32% Pick Rate"
+      },
+      {
+        name: "Venator",
+        slug: "venator",
+        traits: ["Hunter", "Tracking", "Relentless"],
+        laneRole: "Carry / Core Damage",
+        mapZone: "Jungle / Roam & Mid",
+        laneBadge: "Jungle / Side",
+        laneDetail: "Tracks down low-health enemies through jungle corridors and secures neutral objectives.",
+        heroClass: "Marksman",
+        tier: "B",
+        winRate: 46.47,
+        wrDelta: "-0.36%",
+        pickRate: 40.11,
+        deadlockedWR: 46.6,
+        note: "High Popularity Carry (40.11% Pick Rate)"
+      },
+
+      // C TIER HIGH-SKILL / SITUATIONAL
+      {
+        name: "Celeste",
+        slug: "celeste",
+        traits: ["Performer", "Disruptive", "Dazzling"],
+        laneRole: "Support / Duo Enabler",
+        mapZone: "Blue (Mid Lane)",
+        laneBadge: "Blue (Duo / Roam)",
+        laneDetail: "Excels in 2v2 central lanes and chaotic teamfights where her dazzling disruption and crowd control shine.",
+        heroClass: "Support",
+        tier: "C",
+        winRate: 47.83,
+        wrDelta: "-0.04%",
+        pickRate: 21.52,
+        deadlockedWR: 47.9,
+        note: "Featured Example Hero: Performer • Disruptive • Dazzling"
+      },
+      {
+        name: "Mo & Krill",
+        slug: "mo-and-krill",
+        traits: ["Burrowing", "Tanky", "Disabling"],
+        laneRole: "Flex / Frontline & Control",
+        mapZone: "Jungle / Roam & Mid",
+        laneBadge: "Jungle / Gank",
+        laneDetail: "Burrows rapidly through jungle tunnels to gank overextended lanes with point-and-click Combo suppression.",
+        heroClass: "Brawler",
+        tier: "C",
+        winRate: 47.24,
+        wrDelta: "+1.32%",
+        pickRate: 23.04,
+        deadlockedWR: 46.7,
+        note: "Premier Anti-Carry Lockdown Roamer"
+      },
+      {
+        name: "Viscous",
+        slug: "viscous",
+        traits: ["Gelatinous", "Bouncing", "Protective"],
+        laneRole: "Support / Duo Enabler",
+        mapZone: "Blue (Mid Lane)",
+        laneBadge: "Blue (Mid Duo)",
+        laneDetail: "Saves allies in central skirmishes with The Cube and disrupts hallways with Goo Ball.",
+        heroClass: "Support",
+        tier: "C",
+        winRate: 46.90,
+        wrDelta: "-0.79%",
+        pickRate: 14.43,
+        deadlockedWR: 47.0,
+        note: "High-Skill Cube Save & Puddle Punch Playmaker"
+      },
+      {
+        name: "Paradox",
+        slug: "paradox",
+        traits: ["Temporal", "Manipulative", "Precise"],
+        laneRole: "Flex / Frontline & Control",
+        mapZone: "Blue (Mid Lane)",
+        laneBadge: "Blue / Roam Pick",
+        laneDetail: "Roams from mid with Kinetic Carbine + Paradoxical Swap to pull enemy carries into her team.",
+        heroClass: "Mystic",
+        tier: "C",
+        winRate: 46.66,
+        wrDelta: "+0.17%",
+        pickRate: 33.34,
+        deadlockedWR: 46.8,
+        note: "Pro-Play Pick Staple (33.34% PR, +3.11% trend)"
+      },
+      {
+        name: "Sinclair",
+        slug: "sinclair",
+        traits: ["Illusionist", "Theatrical", "Deceptive"],
+        laneRole: "Support / Duo Enabler",
+        mapZone: "Blue (Mid Lane)",
+        laneBadge: "Blue / Side",
+        laneDetail: "Uses stagecraft illusions and hexes to outplay duo lanes and misdirect teamfights.",
+        heroClass: "Mystic",
+        tier: "C",
+        winRate: 46.60,
+        wrDelta: "+0.35%",
+        pickRate: 9.59,
+        deadlockedWR: 46.7,
+        note: "High-Complexity Illusion Specialist"
+      },
+      {
+        name: "Grey Talon",
+        slug: "grey-talon",
+        traits: ["Archer", "Long-Range", "Trapping"],
+        laneRole: "Carry / Core Damage",
+        mapZone: "Yellow / Green (Side Lanes)",
+        laneBadge: "Yellow / Green Sniper",
+        laneDetail: "Controls long outer-lane sightlines with Charged Shot while scouting global fights via Guided Owl.",
+        heroClass: "Marksman",
+        tier: "C",
+        winRate: 46.57,
+        wrDelta: "+0.64%",
+        pickRate: 21.58,
+        deadlockedWR: 46.6,
+        note: "Long-Range Artillery & Global Owl Finisher"
+      },
+      {
+        name: "Shiv",
+        slug: "shiv",
+        traits: ["Brawler", "Bleeding", "Executing"],
+        laneRole: "Flex / Frontline & Control",
+        mapZone: "Yellow / Green (Side Lanes)",
+        laneBadge: "Yellow / Green Bruiser",
+        laneDetail: "Side-lane bruiser who builds Rage on waves/camps and cleans up multi-kills with Killing Blow.",
+        heroClass: "Brawler",
+        tier: "C",
+        winRate: 46.13,
+        wrDelta: "+0.08%",
+        pickRate: 35.50,
+        deadlockedWR: 46.2,
+        note: "Popular Reset Bruiser (35.50% Pick Rate)"
+      },
+      {
+        name: "Pocket",
+        slug: "pocket",
+        traits: ["Elusive", "Afflicting", "Bursting"],
+        laneRole: "Carry / Core Damage",
+        mapZone: "Jungle / Roam & Mid",
+        laneBadge: "Blue / Rooftop Dive",
+        laneDetail: "Dives from central rooftops with Flying Cloak + Enchanter's Satchel to burst entire teams with Affliction.",
+        heroClass: "Mystic",
+        tier: "C",
+        winRate: 45.95,
+        wrDelta: "+0.79%",
+        pickRate: 23.51,
+        deadlockedWR: 46.0,
+        note: "High-Skill AoE Spirit Burst Diver"
+      },
+      {
+        name: "Mina",
+        slug: "mina",
+        traits: ["Sanguine", "Agile", "Piercing"],
+        laneRole: "Carry / Core Damage",
+        mapZone: "Yellow / Green (Side Lanes)",
+        laneBadge: "Yellow / Green",
+        laneDetail: "Skirmishes on outer lanes where her mobility and piercing attacks punish immobile laners.",
+        heroClass: "Assassin",
+        tier: "C",
+        winRate: 45.13,
+        wrDelta: "-0.34%",
+        pickRate: 35.52,
+        deadlockedWR: 45.2,
+        note: "High Pick Rate Skirmisher (35.52% PR)"
+      },
+
+      // D TIER NICHE / PRO-SKEWED
+      {
+        name: "The Doorman",
+        slug: "the-doorman",
+        traits: ["Spatial", "Gatekeeper", "Unpredictable"],
+        laneRole: "Support / Duo Enabler",
+        mapZone: "Jungle / Roam & Mid",
+        laneBadge: "Blue / Portal Roam",
+        laneDetail: "Creates cross-lane portal shortcuts for coordinated ganks, Urn deliveries, and Mid-Boss rotations.",
+        heroClass: "Support",
+        tier: "D",
+        winRate: 45.81,
+        wrDelta: "-0.10%",
+        pickRate: 15.02,
+        deadlockedWR: 45.9,
+        note: "Requires High Team Coordination"
+      },
+      {
+        name: "Rem",
+        slug: "rem",
+        traits: ["Dreamy", "Ethereal", "Disruptive"],
+        laneRole: "Support / Duo Enabler",
+        mapZone: "Blue (Mid Lane)",
+        laneBadge: "Blue (Mid Duo)",
+        laneDetail: "Duo-lane disruptor who sleeps and repositions enemies during central skirmishes.",
+        heroClass: "Mystic",
+        tier: "D",
+        winRate: 45.04,
+        wrDelta: "-0.19%",
+        pickRate: 25.92,
+        deadlockedWR: 44.6,
+        note: "Deadlocked Featured D-Build • 25.92% Pick Rate"
+      },
+      {
+        name: "Violet",
+        slug: "violet",
+        traits: ["Arcane", "Volatile", "Dashing"],
+        laneRole: "Carry / Core Damage",
+        mapZone: "Yellow / Green (Side Lanes)",
+        laneBadge: "Yellow / Green",
+        laneDetail: "Fast-moving spell-weaver who duels in side lanes and flanks late-game fights.",
+        heroClass: "Assassin",
+        tier: "D",
+        winRate: 44.51,
+        wrDelta: "-0.68%",
+        pickRate: 13.21,
+        deadlockedWR: 44.5,
+        note: "Recent Nerf Impact (▼-4.8% vs 30d avg)"
+      },
+      {
+        name: "Mirage",
+        slug: "mirage",
+        traits: ["Djinn", "Teleporting", "Duelling"],
+        laneRole: "Flex / Frontline & Control",
+        mapZone: "Yellow / Green (Side Lanes)",
+        laneBadge: "Yellow / Green Global",
+        laneDetail: "Holds isolated Yellow/Green side lanes while always ready to Traveler-teleport into any fight globally.",
+        heroClass: "Marksman",
+        tier: "D",
+        winRate: 41.61,
+        wrDelta: "+0.33%",
+        pickRate: 11.10,
+        deadlockedWR: 41.8,
+        note: "Global Macro Specialist • High Pro Presence"
+      }
+    ];
+
+    // Map hero names to Deadlock internal asset hero keys for official portrait resolution
+    const ASSET_HERO_MAP = {
+      "Abrams": "bull",
+      "Bebop": "bebop",
+      "Calico": "nano",
+      "Dynamo": "dynamo",
+      "Grey Talon": "orion",
+      "Haze": "haze",
+      "Holliday": "astro",
+      "Infernus": "inferno",
+      "Ivy": "tengu",
+      "Kelvin": "kelvin",
+      "Lady Geist": "ghost",
+      "Lash": "lash",
+      "McGinnis": "forge",
+      "Mirage": "mirage",
+      "Mo & Krill": "krill",
+      "Paradox": "chrono",
+      "Pocket": "synth",
+      "Seven": "gigawatt",
+      "Shiv": "shiv",
+      "Sinclair": "magician",
+      "Vindicta": "hornet",
+      "Viscous": "viscous",
+      "Vyper": "kali",
+      "Warden": "warden",
+      "Wraith": "wraith",
+      "Yamato": "yamato"
+    };
+
+    // Dynamic portrait cache populated from assets.deadlock-api.com on load
+    const LIVE_PORTRAIT_CACHE = {};
+
+    // State
+    let currentGroupBy = "laneRole";
+    let currentSortBy = "winRate";
+    let currentSearch = "";
+
+    const TIER_WEIGHT = { "S+": 6, "S": 5, "A": 4, "B": 3, "C": 2, "D": 1 };
+
+    const GROUP_METADATA = {
+      laneRole: {
+        "Carry / Core Damage": {
+          subtitle: "Primary Soul-scaling damage dealers (Marksmen, Hypercarries & Assassins)",
+          accent: "border-rose-500/40 bg-rose-500/5",
+          badge: "bg-rose-500/20 text-rose-300 border-rose-500/40"
+        },
+        "Flex / Frontline & Control": {
+          subtitle: "Initiators, Frontline Brawlers, Off-Tanks & Pick Specialists",
+          accent: "border-amber-500/40 bg-amber-500/5",
+          badge: "bg-amber-500/20 text-amber-300 border-amber-500/40"
+        },
+        "Support / Duo Enabler": {
+          subtitle: "Duo-lane sustain, crowd-control savers, utility engines & objective siegers",
+          accent: "border-emerald-500/40 bg-emerald-500/5",
+          badge: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40"
+        }
+      },
+      mapZone: {
+        "Yellow / Green (Side Lanes)": {
+          subtitle: "Outer Lanes (York & Greenwich) — Solo duelists, split-pushers, snipers & Soul Urn control",
+          accent: "border-yellow-500/40 bg-yellow-500/5",
+          badge: "bg-yellow-500/20 text-yellow-300 border-yellow-500/40"
+        },
+        "Blue (Mid Lane)": {
+          subtitle: "Central Broadway Lane — Frontline anchors, AoE teamfighters & duo-lane supports",
+          accent: "border-sky-500/40 bg-sky-500/5",
+          badge: "bg-sky-500/20 text-sky-300 border-sky-500/40"
+        },
+        "Jungle / Roam & Mid": {
+          subtitle: "Neutral Denizen Power-Farmers, Sinner's Sacrifice controllers & Cross-Lane Gankers",
+          accent: "border-emerald-500/40 bg-emerald-500/5",
+          badge: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40"
+        }
+      },
+      tier: {
+        "S+": {
+          subtitle: "Meta-Defining Gods — Highest combined Win Rate + Pick Rate in Ranked",
+          accent: "border-rose-500/50 bg-rose-500/10",
+          badge: "bg-rose-500/25 text-rose-200 border-rose-400"
+        },
+        "S": {
+          subtitle: "Top-Tier Meta Staples — Dominant across Ranked brackets",
+          accent: "border-amber-500/50 bg-amber-500/10",
+          badge: "bg-amber-500/25 text-amber-200 border-amber-400"
+        },
+        "A": {
+          subtitle: "Strong Contenders — Reliable high-performing picks",
+          accent: "border-emerald-500/40 bg-emerald-500/5",
+          badge: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40"
+        },
+        "B": {
+          subtitle: "Balanced & Matchup-Dependent Specialists",
+          accent: "border-sky-500/40 bg-sky-500/5",
+          badge: "bg-sky-500/20 text-sky-300 border-sky-500/40"
+        },
+        "C": {
+          subtitle: "High Skill-Floor / Coordinated Comp Picks",
+          accent: "border-purple-500/40 bg-purple-500/5",
+          badge: "bg-purple-500/20 text-purple-300 border-purple-500/40"
+        },
+        "D": {
+          subtitle: "Niche / Pro-Skewed / Awaiting Buffs",
+          accent: "border-slate-600 bg-slate-800/30",
+          badge: "bg-slate-700 text-slate-300 border-slate-600"
+        }
+      },
+      heroClass: {
+        "Marksman": {
+          subtitle: "Sustained weapon DPS, long-range snipers & objective shredders",
+          accent: "border-amber-500/40 bg-amber-500/5",
+          badge: "bg-amber-500/20 text-amber-300 border-amber-500/40"
+        },
+        "Mystic": {
+          subtitle: "Spirit-scaling casters, AoE burst mages & zone controllers",
+          accent: "border-purple-500/40 bg-purple-500/5",
+          badge: "bg-purple-500/20 text-purple-300 border-purple-500/40"
+        },
+        "Brawler": {
+          subtitle: "Heavy frontline tanks, melee bruisers & crowd-control initiators",
+          accent: "border-rose-500/40 bg-rose-500/5",
+          badge: "bg-rose-500/20 text-rose-300 border-rose-500/40"
+        },
+        "Assassin": {
+          subtitle: "High-mobility flankers, stealth pick-off specialists & duelists",
+          accent: "border-sky-500/40 bg-sky-500/5",
+          badge: "bg-sky-500/20 text-sky-300 border-sky-500/40"
+        },
+        "Support": {
+          subtitle: "Shielders, healers, rescue specialists & teamfight utility",
+          accent: "border-emerald-500/40 bg-emerald-500/5",
+          badge: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40"
+        }
+      }
+    };
+
+    function getTierBadgeStyle(tier) {
+      switch (tier) {
+        case "S+": return "bg-rose-500/25 text-rose-200 border-rose-400/70 shadow-sm";
+        case "S":  return "bg-amber-500/25 text-amber-200 border-amber-400/70";
+        case "A":  return "bg-emerald-500/20 text-emerald-300 border-emerald-500/50";
+        case "B":  return "bg-sky-500/20 text-sky-300 border-sky-500/50";
+        case "C":  return "bg-purple-500/20 text-purple-300 border-purple-500/50";
+        default:   return "bg-slate-700/70 text-slate-300 border-slate-600";
+      }
+    }
+
+    function getMapBadgeStyle(mapZone) {
+      if (mapZone.includes("Yellow")) return "bg-yellow-500/15 text-yellow-300 border-yellow-500/40";
+      if (mapZone.includes("Blue")) return "bg-sky-500/15 text-sky-300 border-sky-500/40";
+      return "bg-emerald-500/15 text-emerald-300 border-emerald-500/40";
+    }
+
+    function getHeroPortraitUrl(hero) {
+      if (LIVE_PORTRAIT_CACHE[hero.name]) {
+        return LIVE_PORTRAIT_CACHE[hero.name];
+      }
+      if (ASSET_HERO_MAP[hero.name]) {
+        return `https://assets.deadlock-api.com/images/heroes/${ASSET_HERO_MAP[hero.name]}_sm.webp`;
+      }
+      return `https://deadlock.one/images/heroes/${hero.slug}.webp`;
+    }
+
+    function getFallbackAvatarUrl(hero) {
+      const hexByClass = {
+        "Marksman": "b45309",
+        "Mystic": "6d28d9",
+        "Brawler": "be123c",
+        "Assassin": "0369a1",
+        "Support": "047857"
+      };
+      const bg = hexByClass[hero.heroClass] || "1e293b";
+      const initials = encodeURIComponent(hero.name);
+      return `https://placehold.co/160x160/${bg}/f3efe6?text=${initials}`;
+    }
+
+    function getBuildLinks(hero) {
+      const slug = hero.slug || hero.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+      return {
+        deadlocked: `https://deadlocked.gg/heroes/${slug}/builds`,
+        tracklock: `https://tracklock.gg/heroes/${slug}`,
+        deadlockOne: `https://deadlock.one/en/heroes/${slug}`
+      };
+    }
+
+    function setGroupBy(mode) {
+      currentGroupBy = mode;
+      ["laneRole", "mapZone", "tier", "heroClass"].forEach(key => {
+        const btn = document.getElementById(`btn-group-${key}`);
+        if (!btn) return;
+        if (key === mode) {
+          btn.className = "px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-amber-500 text-slate-950 shadow";
+        } else {
+          btn.className = "px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-slatecard text-slate-300 hover:bg-slate-800 border border-slate-700";
+        }
+      });
+      renderInfographic();
+    }
+
+    function setSortBy(sortMode) {
+      currentSortBy = sortMode;
+      renderInfographic();
+    }
+
+    function handleSearch(val) {
+      currentSearch = val.trim();
+      const input = document.getElementById("search-input");
+      if (input && input.value !== val) {
+        input.value = val;
+      }
+      const clearBtn = document.getElementById("clear-search");
+      const banner = document.getElementById("active-filter-banner");
+      const bannerText = document.getElementById("active-filter-text");
+
+      if (currentSearch.length > 0) {
+        clearBtn.classList.remove("hidden");
+        banner.classList.remove("hidden");
+        bannerText.textContent = `"${currentSearch}"`;
+      } else {
+        clearBtn.classList.add("hidden");
+        banner.classList.add("hidden");
+      }
+      renderInfographic();
+    }
+
+    function filterByTrait(trait) {
+      const input = document.getElementById("search-input");
+      input.value = trait;
+      handleSearch(trait);
+    }
+
+    function clearFilters() {
+      const input = document.getElementById("search-input");
+      input.value = "";
+      handleSearch("");
+    }
+
+    function sortHeroes(list) {
+      return [...list].sort((a, b) => {
+        if (currentSortBy === "winRate") return b.winRate - a.winRate;
+        if (currentSortBy === "pickRate") return b.pickRate - a.pickRate;
+        if (currentSortBy === "tier") {
+          const diff = (TIER_WEIGHT[b.tier] || 0) - (TIER_WEIGHT[a.tier] || 0);
+          return diff !== 0 ? diff : b.winRate - a.winRate;
+        }
+        return a.name.localeCompare(b.name);
+      });
+    }
+
+    function renderInfographic() {
+      const container = document.getElementById("groups-container");
+      const query = currentSearch.toLowerCase();
+
+      // Filter heroes
+      const filtered = HEROES_DATA.filter(h => {
+        if (!query) return true;
+        const inName = h.name.toLowerCase().includes(query);
+        const inTraits = h.traits.some(t => t.toLowerCase().includes(query));
+        const inRole = h.laneRole.toLowerCase().includes(query);
+        const inMap = h.mapZone.toLowerCase().includes(query) || h.laneBadge.toLowerCase().includes(query);
+        const inClass = h.heroClass.toLowerCase().includes(query);
+        return inName || inTraits || inRole || inMap || inClass;
+      });
+
+      const metaMap = GROUP_METADATA[currentGroupBy];
+      const groupKeys = Object.keys(metaMap);
+
+      let html = "";
+
+      groupKeys.forEach(groupKey => {
+        const groupHeroes = sortHeroes(filtered.filter(h => h[currentGroupBy] === groupKey));
+        if (groupHeroes.length === 0) return;
+
+        const meta = metaMap[groupKey];
+        const avgWR = (groupHeroes.reduce((acc, h) => acc + h.winRate, 0) / groupHeroes.length).toFixed(2);
+
+        html += `
+          <section class="rounded-2xl border ${meta.accent} p-5 sm:p-7">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 mb-6 border-b border-slate-800/90">
+              <div>
+                <div class="flex items-center gap-3">
+                  <span class="px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider border ${meta.badge}">
+                    ${groupKey}
+                  </span>
+                  <span class="text-xs font-semibold text-slate-400">
+                    ${groupHeroes.length} ${groupHeroes.length === 1 ? "Hero" : "Heroes"}
+                  </span>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-300 mt-1.5">${meta.subtitle}</p>
+              </div>
+              <div class="text-xs text-slate-400 bg-obsidian/80 px-3.5 py-2 rounded-xl border border-slate-800 self-start sm:self-auto">
+                Group Avg Win Rate: <span class="text-amber-300 font-bold">${avgWR}%</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+              ${groupHeroes.map(hero => renderHeroCard(hero)).join("")}
+            </div>
+          </section>
+        `;
+      });
+
+      if (!html) {
+        html = `
+          <div class="rounded-2xl bg-charcoal border border-slate-800 p-12 text-center">
+            <p class="text-lg font-semibold text-parchment">No heroes match "${currentSearch}"</p>
+            <p class="text-sm text-slate-400 mt-1">Try searching for another hero name, lane (Yellow, Blue, Jungle), or characteristic.</p>
+            <button onclick="clearFilters()" class="mt-4 px-4 py-2 rounded-xl bg-amber-500 text-slate-950 font-semibold text-xs">
+              Reset Filters
+            </button>
+          </div>
+        `;
+      }
+
+      container.innerHTML = html;
+    }
+
+    function renderHeroCard(hero) {
+      const wrColor = hero.winRate >= 52.0
+        ? "text-emerald-400"
+        : hero.winRate >= 49.5
+          ? "text-amber-300"
+          : "text-rose-400";
+
+      const deltaPositive = hero.wrDelta.startsWith("+");
+      const deltaClass = deltaPositive ? "text-emerald-400" : "text-rose-400";
+      const portraitUrl = getHeroPortraitUrl(hero);
+      const fallbackUrl = getFallbackAvatarUrl(hero);
+      const builds = getBuildLinks(hero);
+
+      return `
+        <article class="rounded-xl bg-slatecard/95 border border-slate-800 hover:border-amber-500/50 transition-all p-4 flex flex-col justify-between shadow-lg group">
+          <div>
+            <!-- Character Portrait Visual Banner Above Hero Name -->
+            <div class="flex items-center gap-3.5 mb-3 pb-3 border-b border-slate-800/80">
+              <div class="relative shrink-0">
+                <img
+                  src="${portraitUrl}"
+                  alt="${hero.name} Portrait"
+                  onerror="this.onerror=null;this.src='${fallbackUrl}';"
+                  class="w-14 h-14 rounded-xl object-cover bg-obsidian border border-amber-500/40 shadow-md group-hover:scale-105 transition-transform"
+                  loading="lazy"
+                />
+                <span class="absolute -bottom-1.5 -right-1.5 px-1.5 py-0.5 rounded text-[10px] font-extrabold border ${getTierBadgeStyle(hero.tier)}">
+                  ${hero.tier}
+                </span>
+              </div>
+
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center justify-between gap-1">
+                  <h3 class="font-display text-base sm:text-lg font-bold text-parchment tracking-wide truncate">${hero.name}</h3>
+                  <span class="text-sm font-extrabold ${wrColor} shrink-0">${hero.winRate.toFixed(2)}%</span>
+                </div>
+                <div class="flex flex-wrap items-center justify-between gap-1 mt-0.5">
+                  <span class="text-[11px] text-slate-400 font-medium">${hero.heroClass} • ${hero.laneRole.split(" / ")[0]}</span>
+                  <span class="text-[10px] font-semibold ${deltaClass}">${hero.wrDelta} • ${hero.pickRate.toFixed(1)}% PR</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Characteristics (deadlock.one 3-Trait Pill Row) -->
+            <div class="mb-3">
+              <div class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1.5">
+                Characteristics ("${hero.traits.join('", "')}")
+              </div>
+              <div class="flex flex-wrap gap-1.5">
+                ${hero.traits.map(trait => `
+                  <button
+                    onclick="filterByTrait('${trait}')"
+                    title="Click to filter heroes with '${trait}'"
+                    class="px-2.5 py-1 rounded-lg bg-obsidian hover:bg-amber-500/20 border border-slate-700/80 hover:border-amber-400/50 text-amber-200 text-xs font-medium transition-colors"
+                  >
+                    "${trait}"
+                  </button>
+                `).join("")}
+              </div>
+            </div>
+
+            <!-- Typical Map Zone & Lane Assignment -->
+            <div class="rounded-lg bg-obsidian/70 border border-slate-800/90 p-2.5 mb-3">
+              <div class="flex items-center justify-between gap-2 mb-1">
+                <span class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Typical Map Zone</span>
+                <span class="px-2 py-0.5 rounded text-[11px] font-bold border ${getMapBadgeStyle(hero.mapZone)}">
+                  ${hero.laneBadge}
+                </span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">${hero.laneDetail}</p>
+            </div>
+          </div>
+
+          <!-- Footer: Telemetry Note + Direct Character Build Links -->
+          <div class="pt-2.5 border-t border-slate-800/80 space-y-2">
+            <div class="flex items-center justify-between text-[11px] text-slate-400">
+              <span class="truncate pr-2 text-slate-300 font-medium">${hero.note}</span>
+              <span class="shrink-0 text-slate-500">Deadlocked: ${hero.deadlockedWR}%</span>
+            </div>
+
+            <!-- Character Specific Build Links -->
+            <div class="flex items-center justify-between gap-1.5 pt-1">
+              <span class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold shrink-0">Builds:</span>
+              <div class="flex flex-wrap items-center gap-1.5">
+                <a
+                  href="${builds.deadlocked}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/30 text-rose-200 text-[11px] font-semibold transition-all"
+                  title="View ${hero.name} top Ranked builds on Deadlocked.gg"
+                >
+                  <span>Deadlocked Builds ↗</span>
+                </a>
+                <a
+                  href="${builds.tracklock}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 text-sky-200 text-[11px] font-semibold transition-all"
+                  title="View ${hero.name} Pro Builds & stats on Tracklock.gg"
+                >
+                  <span>Tracklock ↗</span>
+                </a>
+                <a
+                  href="${builds.deadlockOne}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-200 text-[11px] font-semibold transition-all"
+                  title="View ${hero.name} guide on Deadlock.one"
+                >
+                  <span>Deadlock.one ↗</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    // Show non-blocking toast notification
+    function showToast(message) {
+      const toast = document.getElementById("toast-msg");
+      if (!toast) return;
+      toast.textContent = message;
+      toast.classList.remove("hidden");
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => {
+        toast.classList.add("hidden");
+      }, 3600);
+    }
+
+    // Toggle Vercel Setup Modal
+    function toggleVercelModal(show) {
+      const modal = document.getElementById("vercel-modal");
+      if (!modal) return;
+      if (show) {
+        modal.classList.remove("hidden");
+      } else {
+        modal.classList.add("hidden");
+      }
+    }
+
+    // Copy code snippet helper using execCommand for iframe compatibility
+    function copySnippet(elementId, btnEl) {
+      const pre = document.getElementById(elementId);
+      if (!pre) return;
+      const textarea = document.createElement("textarea");
+      textarea.value = pre.innerText;
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand("copy");
+        const orig = btnEl.textContent;
+        btnEl.textContent = "✓ Copied!";
+        setTimeout(() => { btnEl.textContent = orig; }, 2000);
+        showToast("Code copied to clipboard!");
+      } catch (e) {
+        showToast("Unable to copy automatically.");
+      }
+      document.body.removeChild(textarea);
+    }
+
+    // Update top summary KPI cards after telemetry sync
+    function updateHeaderSummary() {
+      const byWR = [...HEROES_DATA].sort((a, b) => b.winRate - a.winRate);
+      const byPR = [...HEROES_DATA].sort((a, b) => b.pickRate - a.pickRate);
+      const sPlus = HEROES_DATA.filter(h => h.tier === "S+").map(h => h.name);
+
+      if (byWR[0]) {
+        document.getElementById("stat-highest-wr").textContent = `${byWR[0].name} • ${byWR[0].winRate.toFixed(2)}% (${byWR[0].tier})`;
+        document.getElementById("stat-highest-wr-sub").textContent = `${byWR[0].deadlockedWR}% 30d Deadlocked`;
+      }
+      if (byPR[0]) {
+        document.getElementById("stat-most-picked").textContent = `${byPR[0].name} • ${byPR[0].pickRate.toFixed(2)}% PR`;
+        document.getElementById("stat-most-picked-sub").textContent = `${byPR[0].winRate.toFixed(2)}% WR (${byPR[0].tier} Tier)`;
+      }
+      if (sPlus.length > 0) {
+        document.getElementById("stat-splus-list").textContent = sPlus.slice(0, 3).join(" • ");
+      }
+    }
+
+    // Live Daily Telemetry & Portrait Sync (Calls Vercel /api/meta + Deadlock Assets API)
+    async function syncDailyTelemetry(isManual = false) {
+      const statusText = document.getElementById("sync-status-text");
+      const lastSyncEl = document.getElementById("stat-last-sync");
+      const syncSourceEl = document.getElementById("stat-sync-source");
+
+      if (isManual) {
+        showToast("Syncing live hero telemetry & portraits...");
+      }
+
+      // 1. Fetch official hero portraits from public Deadlock Assets API (CORS-enabled)
+      try {
+        const assetsRes = await fetch("https://assets.deadlock-api.com/v2/heroes");
+        if (assetsRes.ok) {
+          const assetsList = await assetsRes.json();
+          if (Array.isArray(assetsList)) {
+            assetsList.forEach(item => {
+              const portrait = item?.images?.icon_hero_card_webp || item?.images?.icon_hero_card || item?.images?.minimap_image;
+              if (item?.name && portrait) {
+                LIVE_PORTRAIT_CACHE[item.name] = portrait;
+              }
+            });
+          }
+        }
+      } catch (_) {
+        // Fallback portraits already configured per card
+      }
+
+      // 2. Fetch daily cached Tracklock.gg + Deadlocked.gg stats from Vercel /api/meta endpoint
+      try {
+        const metaRes = await fetch("/api/meta");
+        if (metaRes.ok) {
+          const payload = await metaRes.json();
+          if (payload && payload.heroes && Object.keys(payload.heroes).length > 0) {
+            let updatedCount = 0;
+            HEROES_DATA.forEach(hero => {
+              const fresh = payload.heroes[hero.name];
+              if (fresh) {
+                if (typeof fresh.winRate === "number") hero.winRate = fresh.winRate;
+                if (typeof fresh.pickRate === "number") hero.pickRate = fresh.pickRate;
+                if (fresh.tier) hero.tier = fresh.tier;
+                if (fresh.wrDelta) hero.wrDelta = fresh.wrDelta;
+                if (typeof fresh.deadlockedWR === "number") hero.deadlockedWR = fresh.deadlockedWR;
+                if (fresh.note) hero.note = fresh.note;
+                updatedCount++;
+              }
+            });
+
+            const syncDate = payload.updatedAt ? new Date(payload.updatedAt).toLocaleDateString() : "Today";
+            statusText.textContent = `The Cursed Apple • Live Vercel Edge Telemetry (${syncDate})`;
+            lastSyncEl.textContent = `Synced ${syncDate}`;
+            syncSourceEl.textContent = `${updatedCount} heroes updated via /api/meta`;
+            updateHeaderSummary();
+            renderInfographic();
+            if (isManual) {
+              showToast(`Synced ${updatedCount} heroes from Vercel /api/meta!`);
+            }
+            return;
+          }
+        }
+      } catch (_) {
+        // Running in preview or static mode before /api/meta is deployed
+      }
+
+      updateHeaderSummary();
+      renderInfographic();
+      if (isManual) {
+        showToast("Portraits synced! Deploy /api/meta on Vercel for 24h live scraping.");
+      }
+    }
+
+    // Initialize on load
+    window.addEventListener("DOMContentLoaded", () => {
+      renderInfographic();
+      syncDailyTelemetry(false);
+    });
+  </script>
+</body>
+</html>

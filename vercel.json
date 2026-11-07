@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/deadlock_heroes_lane_roles_infographic", "destination": "/index.html" },
+    { "source": "/deadlock_heroes_lane_roles_infographic.html", "destination": "/index.html" }
+  ]
+}
