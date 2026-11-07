@@ -1271,11 +1271,12 @@ export default async function handler(req, res) {
     }
 
     function getBuildLinks(hero) {
-      const slug = hero.slug || hero.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+      const rawSlug = hero.slug || hero.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+      const deadlockedSlug = rawSlug === "mo-and-krill" ? "mo-krill" : rawSlug;
       return {
-        deadlocked: `https://deadlocked.gg/heroes/${slug}/builds`,
-        tracklock: `https://tracklock.gg/heroes/${slug}`,
-        deadlockOne: `https://deadlock.one/en/heroes/${slug}`
+        deadlocked: `https://deadlocked.gg/heroes/${deadlockedSlug}`,
+        tracklock: `https://tracklock.gg/heroes/${rawSlug}`,
+        deadlockOne: `https://deadlock.one/en/heroes/${rawSlug}`
       };
     }
 
