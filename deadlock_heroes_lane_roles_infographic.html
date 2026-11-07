@@ -47,122 +47,126 @@
 <body class="min-h-screen font-sans antialiased selection:bg-amber-500/30 selection:text-amber-200">
 
   <!-- Main Container -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+  <div class="max-w-7xl 2xl:max-w-[1680px] mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8 lg:py-12">
 
     <!-- Infographic Header -->
-    <header class="rounded-2xl bg-charcoal/90 deco-border p-6 sm:p-8 mb-8 relative overflow-hidden">
-      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-        <div>
-          <div class="flex flex-wrap items-center gap-2 mb-3">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold tracking-wider uppercase">
-              <span id="sync-dot" class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-              <span id="sync-status-text">The Cursed Apple • Live Ranked Telemetry (Patch 2026-11-04)</span>
+    <header class="rounded-2xl bg-charcoal/90 deco-border p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8 relative overflow-hidden">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 sm:gap-6">
+        <div class="min-w-0">
+          <div class="flex flex-wrap items-center gap-2 mb-2.5 sm:mb-3">
+            <div class="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[11px] sm:text-xs font-semibold tracking-wider uppercase max-w-full">
+              <span id="sync-dot" class="w-2 h-2 rounded-full bg-amber-400 animate-pulse shrink-0"></span>
+              <span id="sync-status-text" class="truncate max-w-[200px] xs:max-w-[280px] sm:max-w-none">The Cursed Apple • Live Ranked Telemetry (Patch 2026-11-04)</span>
             </div>
             <button
               onclick="syncDailyTelemetry(true)"
-              class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/40 text-sky-300 text-xs font-semibold transition-all"
+              class="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/40 text-sky-300 text-[11px] sm:text-xs font-semibold transition-all shrink-0"
               title="Trigger live sync from /api/meta or Deadlock open telemetry"
             >
               <span>↻ Sync Live Data</span>
             </button>
           </div>
-          <h1 class="font-display text-2xl sm:text-4xl font-extrabold tracking-tight text-parchment">
+          <h1 class="font-display text-xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-parchment">
             DEADLOCK HEROES, ROLES &amp; PLAYER META
           </h1>
-          <p class="mt-2 text-sm sm:text-base text-slate-300 max-w-3xl">
+          <p class="mt-2 text-xs sm:text-sm lg:text-base text-slate-300 max-w-3xl leading-relaxed">
             All <span class="text-amber-300 font-semibold">44 playable characters</span> sorted by their played lane roles, map zones (<span class="text-yellow-300 font-medium">Yellow/Green Side</span>, <span class="text-sky-300 font-medium">Blue Mid</span>, <span class="text-emerald-300 font-medium">Jungle/Roam</span>), character characteristics from <span class="text-amber-200 font-medium">deadlock.one</span>, and live Ranked player telemetry from <span class="text-sky-300 font-medium">Tracklock.gg</span> &amp; <span class="text-rose-300 font-medium">Deadlocked.gg</span> (164,734+ ranked matches).
           </p>
         </div>
 
         <!-- Telemetry Summary Badges -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-3 shrink-0">
-          <div class="rounded-xl bg-slatecard/90 border border-slate-700/70 px-3.5 py-2.5">
-            <div class="text-[11px] uppercase tracking-wider text-slate-400">Highest WR (Ranked)</div>
-            <div id="stat-highest-wr" class="text-sm font-bold text-amber-300 mt-0.5">Baba • 56.47% (S)</div>
-            <div id="stat-highest-wr-sub" class="text-[11px] text-emerald-400">59.3% 30d Deadlocked</div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 2xl:grid-cols-4 gap-2.5 sm:gap-3 shrink-0">
+          <div class="rounded-xl bg-slatecard/90 border border-slate-700/70 p-2.5 sm:px-3.5 sm:py-2.5 min-w-0">
+            <div class="text-[10px] sm:text-[11px] uppercase tracking-wider text-slate-400 truncate">Highest WR (Ranked)</div>
+            <div id="stat-highest-wr" class="text-xs sm:text-sm font-bold text-amber-300 mt-0.5 truncate">Baba • 56.47% (S)</div>
+            <div id="stat-highest-wr-sub" class="text-[10px] sm:text-[11px] text-emerald-400 truncate">59.3% 30d Deadlocked</div>
           </div>
-          <div class="rounded-xl bg-slatecard/90 border border-slate-700/70 px-3.5 py-2.5">
-            <div class="text-[11px] uppercase tracking-wider text-slate-400">S+ Meta Defining</div>
-            <div id="stat-splus-list" class="text-sm font-bold text-rose-300 mt-0.5">Graves • Seven • Paige</div>
-            <div class="text-[11px] text-slate-400">High WR + 34–39% Pick</div>
+          <div class="rounded-xl bg-slatecard/90 border border-slate-700/70 p-2.5 sm:px-3.5 sm:py-2.5 min-w-0">
+            <div class="text-[10px] sm:text-[11px] uppercase tracking-wider text-slate-400 truncate">S+ Meta Defining</div>
+            <div id="stat-splus-list" class="text-xs sm:text-sm font-bold text-rose-300 mt-0.5 truncate">Graves • Seven • Paige</div>
+            <div class="text-[10px] sm:text-[11px] text-slate-400 truncate">High WR + 34–39% Pick</div>
           </div>
-          <div class="rounded-xl bg-slatecard/90 border border-slate-700/70 px-3.5 py-2.5">
-            <div class="text-[11px] uppercase tracking-wider text-slate-400">Most Picked Hero</div>
-            <div id="stat-most-picked" class="text-sm font-bold text-sky-300 mt-0.5">Haze • 53.77% PR</div>
-            <div id="stat-most-picked-sub" class="text-[11px] text-slate-400">52.70% WR (S Tier)</div>
+          <div class="rounded-xl bg-slatecard/90 border border-slate-700/70 p-2.5 sm:px-3.5 sm:py-2.5 min-w-0">
+            <div class="text-[10px] sm:text-[11px] uppercase tracking-wider text-slate-400 truncate">Most Picked Hero</div>
+            <div id="stat-most-picked" class="text-xs sm:text-sm font-bold text-sky-300 mt-0.5 truncate">Haze • 53.77% PR</div>
+            <div id="stat-most-picked-sub" class="text-[10px] sm:text-[11px] text-slate-400 truncate">52.70% WR (S Tier)</div>
           </div>
-          <div class="rounded-xl bg-slatecard/90 border border-slate-700/70 px-3.5 py-2.5">
-            <div class="text-[11px] uppercase tracking-wider text-slate-400">Last Telemetry Sync</div>
-            <div id="stat-last-sync" class="text-sm font-bold text-emerald-300 mt-0.5">Daily Snapshot</div>
-            <div id="stat-sync-source" class="text-[11px] text-emerald-400">Auto-refreshes every 24h</div>
+          <div class="rounded-xl bg-slatecard/90 border border-slate-700/70 p-2.5 sm:px-3.5 sm:py-2.5 min-w-0">
+            <div class="text-[10px] sm:text-[11px] uppercase tracking-wider text-slate-400 truncate">Last Telemetry Sync</div>
+            <div id="stat-last-sync" class="text-xs sm:text-sm font-bold text-emerald-300 mt-0.5 truncate">Daily Snapshot</div>
+            <div id="stat-sync-source" class="text-[10px] sm:text-[11px] text-emerald-400 truncate">Auto-refreshes every 24h</div>
           </div>
         </div>
       </div>
 
       <!-- Map & Lane Meta Explainer Bar -->
-      <div class="mt-6 pt-5 border-t border-slate-800/90 grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-        <div class="rounded-xl bg-yellow-500/10 border border-yellow-500/30 p-3 flex items-start gap-3">
-          <span class="px-2 py-1 rounded bg-yellow-500/20 text-yellow-300 font-bold shrink-0">YELLOW / GREEN</span>
+      <div class="mt-5 sm:mt-6 pt-4 sm:pt-5 border-t border-slate-800/90 grid grid-cols-1 md:grid-cols-3 gap-2.5 sm:gap-3 text-xs">
+        <div class="rounded-xl bg-yellow-500/10 border border-yellow-500/30 p-2.5 sm:p-3 flex items-start gap-2.5 sm:gap-3">
+          <span class="px-2 py-0.5 sm:py-1 rounded bg-yellow-500/20 text-yellow-300 font-bold shrink-0 text-[11px] sm:text-xs">YELLOW / GREEN</span>
           <div>
             <div class="font-semibold text-yellow-200">Outer Side Lanes (York &amp; Greenwich)</div>
-            <p class="text-slate-300 mt-0.5">Longer, isolated lanes favored by 1v1 duelists, split-pushers, snipers, and Soul Urn controllers after the ~8m laning phase.</p>
+            <p class="text-slate-300 mt-0.5 text-[11px] sm:text-xs leading-relaxed">Longer, isolated lanes favored by 1v1 duelists, split-pushers, snipers, and Soul Urn controllers after the ~8m laning phase.</p>
           </div>
         </div>
-        <div class="rounded-xl bg-sky-500/10 border border-sky-500/30 p-3 flex items-start gap-3">
-          <span class="px-2 py-1 rounded bg-sky-500/20 text-sky-300 font-bold shrink-0">BLUE (MID)</span>
+        <div class="rounded-xl bg-sky-500/10 border border-sky-500/30 p-2.5 sm:p-3 flex items-start gap-2.5 sm:gap-3">
+          <span class="px-2 py-0.5 sm:py-1 rounded bg-sky-500/20 text-sky-300 font-bold shrink-0 text-[11px] sm:text-xs">BLUE (MID)</span>
           <div>
             <div class="font-semibold text-sky-200">Central Broadway Lane</div>
-            <p class="text-slate-300 mt-0.5">Shortest rotation distance to both side lanes and Mid-Boss. Anchored by frontline bruisers, AoE teamfighters, and duo-lane supports.</p>
+            <p class="text-slate-300 mt-0.5 text-[11px] sm:text-xs leading-relaxed">Shortest rotation distance to both side lanes and Mid-Boss. Anchored by frontline bruisers, AoE teamfighters, and duo-lane supports.</p>
           </div>
         </div>
-        <div class="rounded-xl bg-emerald-500/10 border border-emerald-500/30 p-3 flex items-start gap-3">
-          <span class="px-2 py-1 rounded bg-emerald-500/20 text-emerald-300 font-bold shrink-0">JUNGLE / ROAM</span>
+        <div class="rounded-xl bg-emerald-500/10 border border-emerald-500/30 p-2.5 sm:p-3 flex items-start gap-2.5 sm:gap-3">
+          <span class="px-2 py-0.5 sm:py-1 rounded bg-emerald-500/20 text-emerald-300 font-bold shrink-0 text-[11px] sm:text-xs">JUNGLE / ROAM</span>
           <div>
             <div class="font-semibold text-emerald-200">Neutral Denizens, Sinners &amp; Gank Routes</div>
-            <p class="text-slate-300 mt-0.5">No hero jungles at 0:00 (everyone starts 2v2), but hypercarries and assassins transition into power-farming camps &amp; ganking between waves.</p>
+            <p class="text-slate-300 mt-0.5 text-[11px] sm:text-xs leading-relaxed">No hero jungles at 0:00 (everyone starts 2v2), but hypercarries and assassins transition into power-farming camps &amp; ganking between waves.</p>
           </div>
         </div>
       </div>
     </header>
 
     <!-- Interactive Controls Bar -->
-    <section class="rounded-2xl bg-charcoal/90 border border-slate-800 p-4 sm:p-5 mb-8 sticky top-3 z-30 backdrop-blur-md shadow-2xl">
-      <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+    <section class="rounded-2xl bg-charcoal/90 border border-slate-800 p-3 sm:p-5 mb-6 sm:mb-8 sm:sticky top-3 z-30 backdrop-blur-md shadow-2xl">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 sm:gap-4">
         <!-- Grouping Mode Buttons -->
-        <div class="flex flex-wrap items-center gap-2">
-          <span class="text-xs font-semibold uppercase tracking-wider text-slate-400 mr-1">Group By:</span>
-          <button onclick="setGroupBy('laneRole')" id="btn-group-laneRole" class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-amber-500 text-slate-950 shadow">
-            Played Lane Role
+        <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+          <span class="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-slate-400 mr-1 shrink-0">Group By:</span>
+          <button onclick="setGroupBy('laneRole')" id="btn-group-laneRole" class="px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-amber-500 text-slate-950 shadow">
+            <span class="sm:hidden">Lane Roles</span>
+            <span class="hidden sm:inline">Played Lane Role</span>
           </button>
-          <button onclick="setGroupBy('mapZone')" id="btn-group-mapZone" class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-slatecard text-slate-300 hover:bg-slate-800 border border-slate-700">
-            Map Zone (Yellow/Green • Blue • Jungle)
+          <button onclick="setGroupBy('mapZone')" id="btn-group-mapZone" class="px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-slatecard text-slate-300 hover:bg-slate-800 border border-slate-700">
+            <span class="sm:hidden">Map Zones</span>
+            <span class="hidden sm:inline">Map Zone (Yellow/Green • Blue • Jungle)</span>
           </button>
-          <button onclick="setGroupBy('tier')" id="btn-group-tier" class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-slatecard text-slate-300 hover:bg-slate-800 border border-slate-700">
-            Player Meta Tier (Tracklock / Deadlocked)
+          <button onclick="setGroupBy('tier')" id="btn-group-tier" class="px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-slatecard text-slate-300 hover:bg-slate-800 border border-slate-700">
+            <span class="sm:hidden">Meta Tiers</span>
+            <span class="hidden sm:inline">Player Meta Tier (Tracklock / Deadlocked)</span>
           </button>
-          <button onclick="setGroupBy('heroClass')" id="btn-group-heroClass" class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-slatecard text-slate-300 hover:bg-slate-800 border border-slate-700">
-            Hero Archetype
+          <button onclick="setGroupBy('heroClass')" id="btn-group-heroClass" class="px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-slatecard text-slate-300 hover:bg-slate-800 border border-slate-700">
+            <span class="sm:hidden">Archetypes</span>
+            <span class="hidden sm:inline">Hero Archetype</span>
           </button>
         </div>
 
         <!-- Search & Sort Controls -->
-        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-          <div class="relative flex-1 sm:w-64">
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
+          <div class="relative flex-1 sm:w-60 md:w-72">
             <input
               id="search-input"
               type="text"
               oninput="handleSearch(this.value)"
-              placeholder="Search hero, trait (e.g. Disruptive), lane..."
-              class="w-full rounded-xl bg-obsidian border border-slate-700 px-3.5 py-2 text-xs sm:text-sm text-parchment placeholder-slate-500 focus:outline-none focus:border-amber-400"
+              placeholder="Search hero, trait, lane..."
+              class="w-full rounded-xl bg-obsidian border border-slate-700 px-3.5 py-1.5 sm:py-2 text-xs sm:text-sm text-parchment placeholder-slate-500 focus:outline-none focus:border-amber-400"
             />
             <button id="clear-search" onclick="clearFilters()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-[11px] px-2 py-0.5 rounded bg-slate-800 text-amber-300 hover:bg-slate-700">
               Clear
             </button>
           </div>
 
-          <div class="flex items-center gap-2">
-            <label for="sort-select" class="text-xs font-semibold uppercase tracking-wider text-slate-400 shrink-0">Sort Cards:</label>
-            <select id="sort-select" onchange="setSortBy(this.value)" class="rounded-xl bg-obsidian border border-slate-700 px-3 py-2 text-xs sm:text-sm text-parchment focus:outline-none focus:border-amber-400">
+          <div class="flex items-center gap-2 shrink-0">
+            <label for="sort-select" class="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-slate-400 shrink-0">Sort:</label>
+            <select id="sort-select" onchange="setSortBy(this.value)" class="flex-1 sm:flex-none rounded-xl bg-obsidian border border-slate-700 px-3 py-1.5 sm:py-2 text-xs sm:text-sm text-parchment focus:outline-none focus:border-amber-400">
               <option value="winRate">Win Rate (High → Low)</option>
               <option value="pickRate">Pick Rate (Popular → Niche)</option>
               <option value="tier">Meta Tier (S+ → D)</option>
@@ -186,15 +190,15 @@
     <main id="groups-container" class="space-y-10"></main>
 
     <!-- Footer Note on Data Sources -->
-    <footer class="mt-12 rounded-2xl bg-charcoal/80 border border-slate-800 p-6 text-xs text-slate-400 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+    <footer class="mt-8 sm:mt-12 rounded-2xl bg-charcoal/80 border border-slate-800 p-4 sm:p-6 text-xs text-slate-400 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
       <div>
-        <div class="font-semibold text-parchment mb-1">Data Sources &amp; Vercel Daily Auto-Refresh Architecture</div>
-        <p>
-          Hero roster &amp; three-word character traits sourced from <span class="text-amber-300">deadlock.one/en/heroes</span>. Ranked Win Rates, Pick Rates, and Meta Tiers (`S+` through `D`) compiled from live player match telemetry on <span class="text-sky-300">Tracklock.gg</span> and <span class="text-rose-300">Deadlocked.gg</span>. Automatically refreshes daily on Vercel via <code class="text-emerald-300">/api/meta</code> Edge Caching (<code class="text-slate-300">s-maxage=86400</code>).
+        <div class="font-semibold text-parchment mb-1">Data Sources &amp; Telemetry Architecture</div>
+        <p class="leading-relaxed">
+          Hero roster &amp; traits sourced from <span class="text-amber-300">deadlock.one</span>. Ranked Win Rates, Pick Rates, and Meta Tiers (`S+` through `D`) compiled from live player match telemetry on <span class="text-sky-300">Tracklock.gg</span> and <span class="text-rose-300">Deadlocked.gg</span>.
         </p>
       </div>
       <div class="shrink-0 flex items-center gap-3">
-        <span class="inline-block px-3 py-1.5 rounded-lg bg-slatecard border border-slate-700 text-slate-300 font-medium">
+        <span class="inline-block px-3 py-1.5 rounded-lg bg-slatecard border border-slate-700 text-slate-300 font-medium text-[11px] sm:text-xs">
           44 / 44 Playable Heroes Indexed
         </span>
       </div>
@@ -1152,9 +1156,9 @@
         const btn = document.getElementById(`btn-group-${key}`);
         if (!btn) return;
         if (key === mode) {
-          btn.className = "px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-amber-500 text-slate-950 shadow";
+          btn.className = "px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-amber-500 text-slate-950 shadow";
         } else {
-          btn.className = "px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-slatecard text-slate-300 hover:bg-slate-800 border border-slate-700";
+          btn.className = "px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-slatecard text-slate-300 hover:bg-slate-800 border border-slate-700";
         }
       });
       renderInfographic();
@@ -1256,7 +1260,7 @@
               </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-3.5 sm:gap-4 lg:gap-5">
               ${groupHeroes.map(hero => renderHeroCard(hero)).join("")}
             </div>
           </section>
@@ -1292,47 +1296,47 @@
       const safeHeroName = hero.name.replace(/'/g, "\\'");
 
       return `
-        <article class="rounded-xl bg-slatecard/95 border border-slate-800 hover:border-amber-500/50 transition-all p-4 flex flex-col justify-between shadow-lg group">
+        <article class="rounded-xl bg-slatecard/95 border border-slate-800 hover:border-amber-500/50 transition-all p-3.5 sm:p-4 flex flex-col justify-between shadow-lg group">
           <div>
             <!-- Character Portrait Visual Banner Above Hero Name -->
-            <div class="flex items-center gap-3.5 mb-3 pb-3 border-b border-slate-800/80">
+            <div class="flex items-center gap-3 sm:gap-3.5 mb-2.5 sm:mb-3 pb-2.5 sm:pb-3 border-b border-slate-800/80">
               <div class="relative shrink-0">
                 <img
                   src="${portraitUrl}"
                   alt="${hero.name} Portrait"
                   data-step="0"
                   onerror="handlePortraitError(this, '${safeHeroName}')"
-                  class="w-14 h-14 rounded-xl object-cover bg-obsidian border border-amber-500/40 shadow-md group-hover:scale-105 transition-transform"
+                  class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl object-cover bg-obsidian border border-amber-500/40 shadow-md group-hover:scale-105 transition-transform"
                   loading="lazy"
                 />
-                <span class="absolute -bottom-1.5 -right-1.5 px-1.5 py-0.5 rounded text-[10px] font-extrabold border ${getTierBadgeStyle(hero.tier)}">
+                <span class="absolute -bottom-1 -right-1 sm:-bottom-1.5 sm:-right-1.5 px-1.5 py-0.5 rounded text-[9px] sm:text-[10px] font-extrabold border ${getTierBadgeStyle(hero.tier)}">
                   ${hero.tier}
                 </span>
               </div>
 
               <div class="min-w-0 flex-1">
                 <div class="flex items-center justify-between gap-1">
-                  <h3 class="font-display text-base sm:text-lg font-bold text-parchment tracking-wide truncate">${hero.name}</h3>
-                  <span class="text-sm font-extrabold ${wrColor} shrink-0">${hero.winRate.toFixed(2)}%</span>
+                  <h3 class="font-display text-sm sm:text-base lg:text-lg font-bold text-parchment tracking-wide truncate">${hero.name}</h3>
+                  <span class="text-xs sm:text-sm font-extrabold ${wrColor} shrink-0">${hero.winRate.toFixed(2)}%</span>
                 </div>
                 <div class="flex flex-wrap items-center justify-between gap-1 mt-0.5">
-                  <span class="text-[11px] text-slate-400 font-medium">${hero.heroClass} • ${hero.laneRole.split(" / ")[0]}</span>
-                  <span class="text-[10px] font-semibold ${deltaClass}">${hero.wrDelta} • ${hero.pickRate.toFixed(1)}% PR</span>
+                  <span class="text-[10px] sm:text-[11px] text-slate-400 font-medium truncate">${hero.heroClass} • ${hero.laneRole.split(" / ")[0]}</span>
+                  <span class="text-[10px] font-semibold ${deltaClass} shrink-0">${hero.wrDelta} • ${hero.pickRate.toFixed(1)}% PR</span>
                 </div>
               </div>
             </div>
 
             <!-- Characteristics (deadlock.one 3-Trait Pill Row) -->
-            <div class="mb-3">
-              <div class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1.5">
+            <div class="mb-2.5 sm:mb-3">
+              <div class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1">
                 Characteristics ("${hero.traits.join('", "')}")
               </div>
-              <div class="flex flex-wrap gap-1.5">
+              <div class="flex flex-wrap gap-1 sm:gap-1.5">
                 ${hero.traits.map(trait => `
                   <button
                     onclick="filterByTrait('${trait}')"
                     title="Click to filter heroes with '${trait}'"
-                    class="px-2.5 py-1 rounded-lg bg-obsidian hover:bg-amber-500/20 border border-slate-700/80 hover:border-amber-400/50 text-amber-200 text-xs font-medium transition-colors"
+                    class="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg bg-obsidian hover:bg-amber-500/20 border border-slate-700/80 hover:border-amber-400/50 text-amber-200 text-[10px] sm:text-xs font-medium transition-colors"
                   >
                     "${trait}"
                   </button>
@@ -1341,42 +1345,42 @@
             </div>
 
             <!-- Typical Map Zone & Lane Assignment -->
-            <div class="rounded-lg bg-obsidian/70 border border-slate-800/90 p-2.5 mb-3">
+            <div class="rounded-lg bg-obsidian/70 border border-slate-800/90 p-2 sm:p-2.5 mb-2.5 sm:mb-3">
               <div class="flex items-center justify-between gap-2 mb-1">
-                <span class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Typical Map Zone</span>
-                <span class="px-2 py-0.5 rounded text-[11px] font-bold border ${getMapBadgeStyle(hero.mapZone)}">
+                <span class="text-[9px] sm:text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Typical Map Zone</span>
+                <span class="px-1.5 sm:px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-bold border ${getMapBadgeStyle(hero.mapZone)}">
                   ${hero.laneBadge}
                 </span>
               </div>
-              <p class="text-xs text-slate-300 leading-relaxed">${hero.laneDetail}</p>
+              <p class="text-[11px] sm:text-xs text-slate-300 leading-relaxed">${hero.laneDetail}</p>
             </div>
           </div>
 
           <!-- Footer: Telemetry Note + Direct Character Build Links -->
-          <div class="pt-2.5 border-t border-slate-800/80 space-y-2">
-            <div class="flex items-center justify-between text-[11px] text-slate-400">
+          <div class="pt-2 sm:pt-2.5 border-t border-slate-800/80 space-y-2">
+            <div class="flex items-center justify-between text-[10px] sm:text-[11px] text-slate-400">
               <span class="truncate pr-2 text-slate-300 font-medium">${hero.note}</span>
               <span class="shrink-0 text-slate-500">Deadlocked: ${hero.deadlockedWR}%</span>
             </div>
 
             <!-- Character Specific Build Links -->
-            <div class="flex items-center justify-between gap-1.5 pt-1">
-              <span class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold shrink-0">Builds:</span>
-              <div class="flex flex-wrap items-center gap-1.5">
+            <div class="flex flex-wrap items-center justify-between gap-1.5 pt-0.5">
+              <span class="text-[9px] sm:text-[10px] uppercase tracking-wider text-slate-400 font-semibold shrink-0">Builds:</span>
+              <div class="flex flex-wrap items-center gap-1 sm:gap-1.5">
                 <a
                   href="${builds.deadlocked}"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/30 text-rose-200 text-[11px] font-semibold transition-all"
+                  class="inline-flex items-center gap-1 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/30 text-rose-200 text-[10px] sm:text-[11px] font-semibold transition-all"
                   title="View ${hero.name} top Ranked builds on Deadlocked.gg"
                 >
-                  <span>Deadlocked Builds ↗</span>
+                  <span>Deadlocked ↗</span>
                 </a>
                 <a
                   href="${builds.tracklock}"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 text-sky-200 text-[11px] font-semibold transition-all"
+                  class="inline-flex items-center gap-1 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 text-sky-200 text-[10px] sm:text-[11px] font-semibold transition-all"
                   title="View ${hero.name} Pro Builds & stats on Tracklock.gg"
                 >
                   <span>Tracklock ↗</span>
@@ -1385,7 +1389,7 @@
                   href="${builds.deadlockOne}"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-200 text-[11px] font-semibold transition-all"
+                  class="inline-flex items-center gap-1 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-200 text-[10px] sm:text-[11px] font-semibold transition-all"
                   title="View ${hero.name} guide on Deadlock.one"
                 >
                   <span>Deadlock.one ↗</span>

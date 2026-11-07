@@ -132,3 +132,4 @@ Update `vercel.json` to include daily automated execution at 06:00 UTC:
 - **Ranked win rates, pick rates, & tiers:** [Tracklock.gg](https://tracklock.gg)
 - **30-day trending analytics & guides:** [Deadlocked.gg](https://deadlocked.gg)
 - **Hero portraits & cards:** [Deadlock Wiki](https://deadlock.wiki)
+
