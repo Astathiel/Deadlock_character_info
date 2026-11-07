@@ -65,12 +65,6 @@
             >
               <span>↻ Sync Live Data</span>
             </button>
-            <button
-              onclick="toggleVercelModal(true)"
-              class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-300 text-xs font-semibold transition-all"
-            >
-              <span>▲ Vercel 24h Auto-Sync Setup</span>
-            </button>
           </div>
           <h1 class="font-display text-2xl sm:text-4xl font-extrabold tracking-tight text-parchment">
             DEADLOCK HEROES, ROLES &amp; PLAYER META
@@ -200,9 +194,6 @@
         </p>
       </div>
       <div class="shrink-0 flex items-center gap-3">
-        <button onclick="toggleVercelModal(true)" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-emerald-300 font-semibold transition-all">
-          View Vercel Backend Code
-        </button>
         <span class="inline-block px-3 py-1.5 rounded-lg bg-slatecard border border-slate-700 text-slate-300 font-medium">
           44 / 44 Playable Heroes Indexed
         </span>
@@ -211,131 +202,6 @@
 
   </div>
 
-  <!-- Vercel Daily Auto-Sync Setup & Code Modal -->
-  <div id="vercel-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-    <div class="bg-charcoal border border-amber-500/40 rounded-2xl max-w-4xl w-full p-5 sm:p-7 shadow-2xl max-h-[90vh] overflow-y-auto">
-      <div class="flex items-start justify-between gap-4 pb-4 border-b border-slate-800">
-        <div>
-          <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-[11px] font-bold uppercase tracking-wider">
-            Zero-Database Vercel Automation
-          </span>
-          <h2 class="font-display text-xl sm:text-2xl font-bold text-parchment mt-1">
-            How to Auto-Refresh Tracklock.gg &amp; Deadlocked.gg Data Daily on Vercel
-          </h2>
-          <p class="text-xs sm:text-sm text-slate-300 mt-1">
-            This HTML file is already wired to fetch <code class="text-amber-300">/api/meta</code> on load. By adding the single Serverless Function below to your Vercel repo, Vercel's CDN will scrape Tracklock.gg &amp; Deadlocked.gg once every 24 hours (`s-maxage=86400`) and serve fresh stats to all visitors automatically!
-          </p>
-        </div>
-        <button onclick="toggleVercelModal(false)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold">
-          ✕ Close
-        </button>
-      </div>
-
-      <!-- Architecture Steps -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 my-5 text-xs">
-        <div class="rounded-xl bg-slatecard border border-slate-800 p-3.5">
-          <div class="font-bold text-amber-300 mb-1">1. Folder Structure</div>
-          <p class="text-slate-300">Place this HTML file as <code class="text-white">index.html</code> in your project root, and create <code class="text-emerald-300">api/meta.js</code> plus <code class="text-sky-300">vercel.json</code>.</p>
-        </div>
-        <div class="rounded-xl bg-slatecard border border-slate-800 p-3.5">
-          <div class="font-bold text-sky-300 mb-1">2. 24h Edge Cache (No DB Needed)</div>
-          <p class="text-slate-300">Using <code class="text-white">Cache-Control: s-maxage=86400, stale-while-revalidate=3600</code> caches the scraped JSON at Vercel's Edge for 24 hours.</p>
-        </div>
-        <div class="rounded-xl bg-slatecard border border-slate-800 p-3.5">
-          <div class="font-bold text-emerald-300 mb-1">3. Daily Vercel Cron</div>
-          <p class="text-slate-300">The <code class="text-white">vercel.json</code> cron hits <code class="text-emerald-300">/api/meta</code> every day at 06:00 UTC so even the first visitor gets instant cached data.</p>
-        </div>
-      </div>
-
-      <!-- File 1: api/meta.js -->
-      <div class="mb-5">
-        <div class="flex items-center justify-between mb-2">
-          <span class="text-xs font-bold uppercase tracking-wider text-emerald-300">File 1: <code class="bg-obsidian px-2 py-0.5 rounded border border-slate-700">api/meta.js</code> (Vercel Serverless Scraper)</span>
-          <button onclick="copySnippet('snippet-api-meta', this)" class="px-3 py-1 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold transition-all">
-            Copy api/meta.js
-          </button>
-        </div>
-        <pre id="snippet-api-meta" class="rounded-xl bg-obsidian border border-slate-800 p-4 text-[11px] text-slate-200 overflow-x-auto leading-relaxed"><code>// api/meta.js — Vercel Serverless Function (Node.js 20+)
-// Fetches Tracklock.gg & Deadlocked.gg daily and caches at Vercel Edge for 24 hours.
-
-export default async function handler(req, res) {
-  try {
-    const [tracklockRes, deadlockedRes] = await Promise.allSettled([
-      fetch("https://tracklock.gg/heroes-tier-list", {
-        headers: { "User-Agent": "Mozilla/5.0 (compatible; DeadlockInfographicBot/1.0)" }
-      }),
-      fetch("https://deadlocked.gg/", {
-        headers: { "User-Agent": "Mozilla/5.0 (compatible; DeadlockInfographicBot/1.0)" }
-      })
-    ]);
-
-    const heroes = {};
-
-    // 1. Parse Tracklock.gg Ranked Table rows (Hero, Tier, Win Rate,WR Delta, Pick Rate)
-    if (tracklockRes.status === "fulfilled" && tracklockRes.value.ok) {
-      const html = await tracklockRes.value.text();
-      const text = html.replace(/&lt;[^&gt;]+&gt;/g, " ").replace(/\s+/g, " ");
-      // Matches patterns like: "Graves S+ 55.13% +0.07% +0.07% 39.26%"
-      const rowRegex = /([A-Z][a-zA-Z0-9 &amp;'-]+?)\s+(S\+|S|A|B|C|D)\s+(\d{2}\.\d{2})%\s+([+-]\d+\.\d{2}%)\s+[+-]\d+\.\d{2}%\s+(\d{1,2}\.\d{2})%/g;
-      let match;
-      while ((match = rowRegex.exec(text)) !== null) {
-        const name = match[1].trim();
-        heroes[name] = {
-          tier: match[2],
-          winRate: parseFloat(match[3]),
-          wrDelta: match[4],
-          pickRate: parseFloat(match[5])
-        };
-      }
-    }
-
-    // 2. Parse Deadlocked.gg 30d Win Rate Trends
-    if (deadlockedRes.status === "fulfilled" && deadlockedRes.value.ok) {
-      const dlHtml = await deadlockedRes.value.text();
-      const dlText = dlHtml.replace(/&lt;[^&gt;]+&gt;/g, " ").replace(/\s+/g, " ");
-      const dlRegex = /([A-Z][a-zA-Z0-9 &amp;'-]+?)\s+(S\+|S|A|B|C|D)\s*(\d{2}\.\d)%\s*([▲▼]\s*[+-]?\d+\.\d%)/g;
-      let m;
-      while ((m = dlRegex.exec(dlText)) !== null) {
-        const name = m[1].trim();
-        if (heroes[name]) {
-          heroes[name].deadlockedWR = parseFloat(m[3]);
-          heroes[name].note = `Deadlocked 30d: ${m[3]}% (${m[4]})`;
-        }
-      }
-    }
-
-    // Cache on Vercel CDN Edge for 24 hours (86400s), revalidate in background
-    res.setHeader("Cache-Control", "public, s-maxage=86400, stale-while-revalidate=3600");
-    return res.status(200).json({
-      updatedAt: new Date().toISOString(),
-      source: "Tracklock.gg + Deadlocked.gg (Vercel 24h Edge Cache)",
-      heroes
-    });
-  } catch (err) {
-    return res.status(500).json({ error: err.message });
-  }
-}</code></pre>
-      </div>
-
-      <!-- File 2: vercel.json -->
-      <div>
-        <div class="flex items-center justify-between mb-2">
-          <span class="text-xs font-bold uppercase tracking-wider text-sky-300">File 2: <code class="bg-obsidian px-2 py-0.5 rounded border border-slate-700">vercel.json</code> (Daily Cron Schedule)</span>
-          <button onclick="copySnippet('snippet-vercel-json', this)" class="px-3 py-1 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-bold transition-all">
-            Copy vercel.json
-          </button>
-        </div>
-        <pre id="snippet-vercel-json" class="rounded-xl bg-obsidian border border-slate-800 p-4 text-[11px] text-slate-200 overflow-x-auto leading-relaxed"><code>{
-  "crons": [
-    {
-      "path": "/api/meta",
-      "schedule": "0 6 * * *"
-    }
-  ]
-}</code></pre>
-      </div>
-    </div>
-  </div>
 
   <!-- Toast Notification -->
   <div id="toast-msg" class="hidden fixed bottom-5 right-5 z-50 px-4 py-2.5 rounded-xl bg-charcoal border border-amber-500/50 text-amber-200 text-xs font-semibold shadow-2xl"></div>
@@ -1543,36 +1409,6 @@ export default async function handler(req, res) {
       }, 3600);
     }
 
-    // Toggle Vercel Setup Modal
-    function toggleVercelModal(show) {
-      const modal = document.getElementById("vercel-modal");
-      if (!modal) return;
-      if (show) {
-        modal.classList.remove("hidden");
-      } else {
-        modal.classList.add("hidden");
-      }
-    }
-
-    // Copy code snippet helper using execCommand for iframe compatibility
-    function copySnippet(elementId, btnEl) {
-      const pre = document.getElementById(elementId);
-      if (!pre) return;
-      const textarea = document.createElement("textarea");
-      textarea.value = pre.innerText;
-      document.body.appendChild(textarea);
-      textarea.select();
-      try {
-        document.execCommand("copy");
-        const orig = btnEl.textContent;
-        btnEl.textContent = "✓ Copied!";
-        setTimeout(() => { btnEl.textContent = orig; }, 2000);
-        showToast("Code copied to clipboard!");
-      } catch (e) {
-        showToast("Unable to copy automatically.");
-      }
-      document.body.removeChild(textarea);
-    }
 
     // Update top summary KPI cards after telemetry sync
     function updateHeaderSummary() {
