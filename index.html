@@ -125,6 +125,336 @@
       </div>
     </header>
 
+    <!-- Game Flow, Jungle Spawn Timers & Macro Guide Section -->
+    <section class="rounded-2xl bg-charcoal/90 deco-border p-4 sm:p-6 lg:p-7 mb-6 sm:mb-8">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-800/90">
+        <div>
+          <div class="flex flex-wrap items-center gap-2 mb-1.5">
+            <span class="px-2.5 py-0.5 rounded-full bg-purple-500/20 border border-purple-500/40 text-purple-300 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">
+              Match Timeline &amp; Jungle Spawns
+            </span>
+            <a
+              href="https://www.youtube.com/watch?v=GEMrYWPraYo"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/40 text-rose-200 text-[10px] sm:text-[11px] font-semibold transition-all"
+              title="Watch Paz's Complete Deadlock Beginner's Guide on YouTube"
+            >
+              <span>▶ Watch Video Guide (Paz) ↗</span>
+            </a>
+          </div>
+          <h2 class="font-display text-lg sm:text-2xl font-extrabold tracking-tight text-parchment">
+            GAME FLOW, CAMP SPAWNS &amp; MACRO TIMINGS
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-300 mt-0.5">
+            Key spawn clocks for neutral Denizen camps, boxes, bridge buffs, Sinner's Sacrifice, and phase-by-phase macro objectives.
+          </p>
+        </div>
+
+        <button
+          onclick="toggleGameFlowGuide()"
+          id="btn-toggle-guide"
+          class="self-start sm:self-center shrink-0 px-3 py-1.5 rounded-xl bg-slatecard hover:bg-slate-800 border border-slate-700 text-amber-300 text-xs font-semibold transition-all"
+        >
+          Hide Guide ▲
+        </button>
+      </div>
+
+      <div id="game-flow-content" class="mt-4 sm:mt-5 space-y-5">
+        <!-- Key Spawn Timings Strip (2m / 3m / 5m / 8m) -->
+        <div>
+          <div class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-amber-300 mb-2.5 flex items-center gap-2">
+            <span>⏱ Exact Jungle &amp; Map Spawn Clock</span>
+            <span class="text-slate-500 font-normal hidden sm:inline">— Always shove your Trooper wave before rotating to camps</span>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3">
+            <!-- 2 MINS: Tier 1 Camps -->
+            <div class="rounded-xl bg-slatecard/95 border border-emerald-500/30 p-3 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-1 mb-1">
+                  <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-extrabold text-xs">2 MINS</span>
+                  <span class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Small</span>
+                </div>
+                <div class="font-bold text-parchment text-xs sm:text-sm mt-1">Tier 1 Camps</div>
+                <p class="text-[11px] text-slate-300 mt-1 leading-relaxed">
+                  Small Denizen camps spawn next to lanes. Clear quickly between Trooper waves for early Soul leads.
+                </p>
+              </div>
+            </div>
+
+            <!-- 3 MINS: Boxes -->
+            <div class="rounded-xl bg-slatecard/95 border border-amber-500/30 p-3 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-1 mb-1">
+                  <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-extrabold text-xs">3 MINS</span>
+                  <span class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Loot</span>
+                </div>
+                <div class="font-bold text-parchment text-xs sm:text-sm mt-1">Boxes &amp; Statues</div>
+                <p class="text-[11px] text-slate-300 mt-1 leading-relaxed">
+                  Breakable boxes and Golden Statues spawn across alleys &amp; roofs for bonus Souls and permanent stat buffs.
+                </p>
+              </div>
+            </div>
+
+            <!-- 5 MINS: Tier 2 Camps -->
+            <div class="rounded-xl bg-slatecard/95 border border-sky-500/30 p-3 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-1 mb-1">
+                  <span class="px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 font-extrabold text-xs">5 MINS</span>
+                  <span class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Medium</span>
+                </div>
+                <div class="font-bold text-parchment text-xs sm:text-sm mt-1">Tier 2 Camps</div>
+                <p class="text-[11px] text-slate-300 mt-1 leading-relaxed">
+                  Medium neutral camps spawn in jungle rooms. Core mid-early farm for carries &amp; AoE clearers.
+                </p>
+              </div>
+            </div>
+
+            <!-- 5 MINS: Bridge Buffs -->
+            <div class="rounded-xl bg-slatecard/95 border border-yellow-500/40 p-3 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-1 mb-1">
+                  <span class="px-2 py-0.5 rounded bg-yellow-500/20 text-yellow-300 font-extrabold text-xs">5 MINS</span>
+                  <span class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Powerup</span>
+                </div>
+                <div class="font-bold text-parchment text-xs sm:text-sm mt-1">Bridge Buffs</div>
+                <p class="text-[11px] text-slate-300 mt-1 leading-relaxed">
+                  Temporary Gun, Spirit, Survival &amp; Movement runes spawn on central bridges (respawns every 5m).
+                </p>
+              </div>
+            </div>
+
+            <!-- 8 MINS: Tier 3 Camps -->
+            <div class="rounded-xl bg-slatecard/95 border border-purple-500/40 p-3 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-1 mb-1">
+                  <span class="px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-extrabold text-xs">8 MINS</span>
+                  <span class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Large</span>
+                </div>
+                <div class="font-bold text-parchment text-xs sm:text-sm mt-1">Tier 3 Camps</div>
+                <p class="text-[11px] text-slate-300 mt-1 leading-relaxed">
+                  High-bounty elite Denizens spawn. Tanky camps best cleared by fed hypercarries or after core item spikes.
+                </p>
+              </div>
+            </div>
+
+            <!-- 8 MINS: Sinner's Sacrifice -->
+            <div class="rounded-xl bg-slatecard/95 border border-rose-500/40 p-3 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-1 mb-1">
+                  <span class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-extrabold text-xs">8 MINS</span>
+                  <span class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Jackpot</span>
+                </div>
+                <div class="font-bold text-parchment text-xs sm:text-sm mt-1">Sinner's Sacrifice</div>
+                <p class="text-[11px] text-slate-300 mt-1 leading-relaxed">
+                  Arcade machines spawn! <span class="text-amber-300 font-semibold">Heavy Melee</span> on the final flashing light to jackpot multiple permanent buffs.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3-Phase Match Flow Breakdown -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-3.5 sm:gap-4">
+          <!-- Phase 1: Early Game & Laning -->
+          <div class="rounded-xl bg-obsidian/80 border border-slate-800 p-4 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <span class="px-2.5 py-1 rounded-lg bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs font-bold uppercase tracking-wider">
+                  Phase 1 • Laning (0:00 – 8:00)
+                </span>
+                <span class="text-[11px] text-slate-400 font-semibold">Waves &amp; Guardians</span>
+              </div>
+              <ul class="space-y-2 text-xs text-slate-300 leading-relaxed mt-2.5">
+                <li class="flex items-start gap-2">
+                  <span class="text-amber-400 font-bold shrink-0">•</span>
+                  <span><strong class="text-parchment">Secure &amp; Deny Orbs:</strong> Shoot orange Soul orbs to claim and blue orbs to deny. <strong class="text-amber-200">Melee kills</strong> on Troopers automatically secure 100% of Souls instantly.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-amber-400 font-bold shrink-0">•</span>
+                  <span><strong class="text-parchment">Wave First, Camp Second:</strong> Never miss lane Troopers for early camps. Push your wave into the enemy Guardian, then clear <code class="text-emerald-300">2:00</code> T1 camps or <code class="text-amber-300">3:00</code> Boxes.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-amber-400 font-bold shrink-0">•</span>
+                  <span><strong class="text-parchment">5:00 Bridge Control:</strong> Shove lane at 4:45 to contest the <code class="text-yellow-300">5:00</code> Bridge Buff and pressure the enemy <strong class="text-parchment">Tier 1 Guardian</strong>.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Phase 2: Mid-Game, Jungle, Urn & Rifts -->
+          <div class="rounded-xl bg-obsidian/80 border border-slate-800 p-4 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <span class="px-2.5 py-1 rounded-lg bg-sky-500/20 border border-sky-500/40 text-sky-300 text-xs font-bold uppercase tracking-wider">
+                  Phase 2 • Mid Game (8:00 – 18:00)
+                </span>
+                <span class="text-[11px] text-slate-400 font-semibold">Urn, Rifts &amp; Walkers</span>
+              </div>
+              <ul class="space-y-2 text-xs text-slate-300 leading-relaxed mt-2.5">
+                <li class="flex items-start gap-2">
+                  <span class="text-sky-400 font-bold shrink-0">•</span>
+                  <span><strong class="text-parchment">8:00 Jungle Power Spike:</strong> At 8m, Trooper Souls shift 100% into floating orbs, and <code class="text-purple-300">Tier 3 Camps</code> + <code class="text-rose-300">Sinner's Sacrifice</code> spawn. Carries rotate through jungle paths between waves.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-sky-400 font-bold shrink-0">•</span>
+                  <span><strong class="text-parchment">Soul Urn &amp; Unstable Rifts (10:00+):</strong> Escort the <strong class="text-emerald-300">Soul Urn</strong> for team-wide Souls + Ability Point, and capture <strong class="text-sky-300">Unstable Rifts</strong> on side-lane bridges to summon siege Rift Troopers.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-sky-400 font-bold shrink-0">•</span>
+                  <span><strong class="text-parchment">Unlock Flex Slots:</strong> Destroy enemy <strong class="text-parchment">Walkers</strong> (Tier 2 towers) to unlock your team's extra Flex Item Slots.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Phase 3: Late-Game, Mid-Boss & Sieging -->
+          <div class="rounded-xl bg-obsidian/80 border border-slate-800 p-4 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <span class="px-2.5 py-1 rounded-lg bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs font-bold uppercase tracking-wider">
+                  Phase 3 • Late Game (18:00+)
+                </span>
+                <span class="text-[11px] text-slate-400 font-semibold">Mid-Boss &amp; Patron</span>
+              </div>
+              <ul class="space-y-2 text-xs text-slate-300 leading-relaxed mt-2.5">
+                <li class="flex items-start gap-2">
+                  <span class="text-rose-400 font-bold shrink-0">•</span>
+                  <span><strong class="text-parchment">Push Lanes First:</strong> Always shove at least 2 lanes past the river before starting Mid-Boss or sieging enemy high ground.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-rose-400 font-bold shrink-0">•</span>
+                  <span><strong class="text-parchment">Mid-Boss &amp; Rejuvenator:</strong> Fight inside the central pit after getting picks (global roar alerts enemies at 50% HP). <strong class="text-amber-300">Heavy Melee</strong> the dropping crystal to claim <strong class="text-emerald-300">Rejuvenator</strong> revive credits.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-rose-400 font-bold shrink-0">•</span>
+                  <span><strong class="text-parchment">High-Ground Siege:</strong> Use Rejuvenator / Rift Troopers to break <strong class="text-parchment">Base Guardians</strong>, destroy both <strong class="text-parchment">Shrines</strong>, and defeat the <strong class="text-amber-300">Patron</strong> in the pit.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side Objectives & Map Mechanics Deep-Dive -->
+        <div class="pt-4 border-t border-slate-800/90">
+          <div class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-emerald-300 mb-3 flex flex-wrap items-center justify-between gap-2">
+            <span>🎯 Side Objectives &amp; Map Mechanics Deep-Dive</span>
+            <span class="text-slate-400 font-normal text-[11px]">How to play around the Urn, Unstable Rift, Sinner's Sacrifice, Bridge Buffs &amp; Flex Slots</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3.5 sm:gap-4">
+            <!-- Objective 1: The Soul Urn -->
+            <div class="rounded-xl bg-slatecard/95 border border-emerald-500/35 p-3.5 sm:p-4 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-2">
+                  <span class="font-display text-sm sm:text-base font-bold text-emerald-300">⚱️ The Soul Urn</span>
+                  <span class="px-2 py-0.5 rounded bg-emerald-500/20 border border-emerald-500/40 text-emerald-200 text-[10px] font-bold uppercase">10:00 • Every 5m</span>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  Spawns on one outer side lane (<span class="text-yellow-300 font-medium">Yellow</span> or <span class="text-emerald-300 font-medium">Green</span>) and must be carried across the map to the drop-off altar on the opposite outer lane.
+                </p>
+                <ul class="mt-2.5 space-y-1.5 text-[11px] sm:text-xs text-slate-300">
+                  <li>• <strong class="text-parchment">Carrier Rules:</strong> Carrying grants bonus Sprint Speed, but <span class="text-rose-300">silences abilities/items, disables shooting, and reveals you</span> on the minimap.</li>
+                  <li>• <strong class="text-parchment">Rewards:</strong> Massive team-wide Soul bounty + <strong class="text-amber-300">+25% bonus Souls &amp; +1 Ability Point</strong> for the deliverer.</li>
+                  <li>• <strong class="text-parchment">Comeback Mechanic:</strong> If a team trails by 8%+ net worth, the drop-off point moves closer to the trailing team's side.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Objective 2: The Unstable Rift -->
+            <div class="rounded-xl bg-slatecard/95 border border-sky-500/35 p-3.5 sm:p-4 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-2">
+                  <span class="font-display text-sm sm:text-base font-bold text-sky-300">🌀 The Unstable Rift</span>
+                  <span class="px-2 py-0.5 rounded bg-sky-500/20 border border-sky-500/40 text-sky-200 text-[10px] font-bold uppercase">10:00–12:00 • Every 6–8m</span>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  A King-of-the-Hill objective that spawns on a side-lane bridge after a 25-second global announcement.
+                </p>
+                <ul class="mt-2.5 space-y-1.5 text-[11px] sm:text-xs text-slate-300">
+                  <li>• <strong class="text-parchment">How to Capture:</strong> Stand inside the 20m bridge zone for <strong class="text-sky-200">~12 seconds uncontested</strong> (progress locks at 99% while contested; despawns after 60s).</li>
+                  <li>• <strong class="text-parchment">Rift Troopers:</strong> Capturing grants team Souls and spawns <strong class="text-amber-300">Rift Troopers</strong> (buffed siege super-creeps) that march down lane to melt Walkers.</li>
+                  <li>• <strong class="text-parchment">Comeback Bonus:</strong> Trailing teams capture faster (down to 6s) and gain extra resistances inside the zone.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Objective 3: Sinner's Sacrifice & Statues -->
+            <div class="rounded-xl bg-slatecard/95 border border-rose-500/35 p-3.5 sm:p-4 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-2">
+                  <span class="font-display text-sm sm:text-base font-bold text-rose-300">🎰 Sinner's Sacrifice &amp; Boxes</span>
+                  <span class="px-2 py-0.5 rounded bg-rose-500/20 border border-rose-500/40 text-rose-200 text-[10px] font-bold uppercase">8:00 (Machines) • 3:00 (Boxes)</span>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  Arcade machines Located in jungle rooms that trade a small amount of self-damage for Souls and permanent character stat upgrades.
+                </p>
+                <ul class="mt-2.5 space-y-1.5 text-[11px] sm:text-xs text-slate-300">
+                  <li>• <strong class="text-parchment">Heavy Melee Jackpot:</strong> Punch the machine until the indicator lights climb—time a <strong class="text-amber-300">charged Heavy Melee (Hold Q)</strong> right as the final top bulb lights up to drop <strong class="text-emerald-300">3–4 permanent Golden Statue buffs</strong>!</li>
+                  <li>• <strong class="text-parchment">Golden Statues (3:00):</strong> Smash wooden boxes &amp; golden idols along rooftops and subways for permanent +Weapon Damage, +Spirit, +Max HP, +Ammo, or +CDR.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Objective 4: Bridge Buffs & Teleporters -->
+            <div class="rounded-xl bg-slatecard/95 border border-yellow-500/35 p-3.5 sm:p-4 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-2">
+                  <span class="font-display text-sm sm:text-base font-bold text-yellow-300">⚡ Bridge Buffs &amp; Teleporters</span>
+                  <span class="px-2 py-0.5 rounded bg-yellow-500/20 border border-yellow-500/40 text-yellow-200 text-[10px] font-bold uppercase">5:00 • Every 5m</span>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  Two powerup runes spawn atop the central lane overpass bridges at 5:00 and scale in strength every 5 minutes:
+                </p>
+                <ul class="mt-2.5 space-y-1.5 text-[11px] sm:text-xs text-slate-300">
+                  <li>• <strong class="text-amber-200">Gun / Spirit Buffs:</strong> Grants huge Fire Rate + Ammo (<span class="text-amber-300">Gun</span>) or bonus Spirit Power + Cooldown Reduction (<span class="text-purple-300">Spirit</span>).</li>
+                  <li>• <strong class="text-emerald-200">Survival / Movement Buffs:</strong> Grants bonus Max HP + Regen (<span class="text-emerald-300">Survival</span>) or extra Stamina + Sprint Speed (<span class="text-sky-300">Movement</span>).</li>
+                  <li>• <strong class="text-parchment">Subway Teleporters:</strong> Use underground portals to instantly rotate between outer side lanes (`Yellow ↔ Green`).</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Objective 5: Mid-Boss & The Rejuvenator -->
+            <div class="rounded-xl bg-slatecard/95 border border-purple-500/35 p-3.5 sm:p-4 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-2">
+                  <span class="font-display text-sm sm:text-base font-bold text-purple-300">👁️ Mid-Boss &amp; Rejuvenator</span>
+                  <span class="px-2 py-0.5 rounded bg-purple-500/20 border border-purple-500/40 text-purple-200 text-[10px] font-bold uppercase">10:00+ • Respawns 5–7m</span>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  The central underground raid boss. Can only be damaged by players standing <strong class="text-parchment">inside the pit</strong>.
+                </p>
+                <ul class="mt-2.5 space-y-1.5 text-[11px] sm:text-xs text-slate-300">
+                  <li>• <strong class="text-parchment">50% HP Global Roar:</strong> At half health, Mid-Boss screams globally—warning the enemy team to contest or attempt a steal.</li>
+                  <li>• <strong class="text-parchment">Claiming the Crystal:</strong> On death, a crystal slowly descends. <strong class="text-amber-300">Heavy Melee</strong> it when it lands to claim up to <strong class="text-emerald-300">3 Rejuvenator Revive Credits</strong> (3s instant full-HP self-revive + supercharged lane Troopers).</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Objective 6: Walkers & Unlocking Flex Slots -->
+            <div class="rounded-xl bg-slatecard/95 border border-amber-500/35 p-3.5 sm:p-4 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-2">
+                  <span class="font-display text-sm sm:text-base font-bold text-amber-300">🔓 Walkers &amp; 4 Flex Item Slots</span>
+                  <span class="px-2 py-0.5 rounded bg-amber-500/20 border border-amber-500/40 text-amber-200 text-[10px] font-bold uppercase">Team Progression</span>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  Destroying enemy lane structures grants global Souls and unlocks your team's <strong class="text-amber-300">4 universal Flex Item Slots</strong>:
+                </p>
+                <ul class="mt-2.5 space-y-1 text-[11px] sm:text-xs text-slate-300">
+                  <li>• <strong class="text-amber-200">Flex Slot 1:</strong> Destroy <strong class="text-parchment">3 Enemy Guardians</strong> (Tier 1 towers).</li>
+                  <li>• <strong class="text-amber-200">Flex Slot 2:</strong> Destroy <strong class="text-parchment">2 Enemy Walkers</strong> (Tier 2 towers).</li>
+                  <li>• <strong class="text-amber-200">Flex Slot 3:</strong> Destroy <strong class="text-parchment">All 3 Enemy Walkers</strong>.</li>
+                  <li>• <strong class="text-amber-200">Flex Slot 4:</strong> Destroy <strong class="text-parchment">1 Set of Base Guardians</strong> (or 1 Shrine).</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Interactive Controls Bar -->
     <section class="rounded-2xl bg-charcoal/90 border border-slate-800 p-3 sm:p-5 mb-6 sm:mb-8 sm:sticky top-3 z-30 backdrop-blur-md shadow-2xl">
       <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 sm:gap-4">
@@ -1411,6 +1741,15 @@
       window.__toastTimer = setTimeout(() => {
         toast.classList.add("hidden");
       }, 3600);
+    }
+
+    // Toggle Game Flow & Spawn Timers Guide section
+    function toggleGameFlowGuide() {
+      const content = document.getElementById("game-flow-content");
+      const btn = document.getElementById("btn-toggle-guide");
+      if (!content || !btn) return;
+      const isHidden = content.classList.toggle("hidden");
+      btn.textContent = isHidden ? "Show Guide ▼" : "Hide Guide ▲";
     }
 
 
