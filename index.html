@@ -1218,31 +1218,65 @@ export default async function handler(req, res) {
       if (LIVE_PORTRAIT_CACHE[hero.name]) {
         return LIVE_PORTRAIT_CACHE[hero.name];
       }
-      if (ASSET_HERO_MAP[hero.name]) {
-        return `https://assets.deadlock-api.com/images/heroes/${ASSET_HERO_MAP[hero.name]}_sm.webp`;
-      }
-      return `https://deadlock.one/images/heroes/${hero.slug}.webp`;
+      const wikiSlug = encodeURIComponent(hero.name.replace(/ /g, "_"));
+      return `https://deadlock.wiki/Special:FilePath/${wikiSlug}_card.png`;
     }
 
-    function getFallbackAvatarUrl(hero) {
-      const hexByClass = {
-        "Marksman": "b45309",
-        "Mystic": "6d28d9",
-        "Brawler": "be123c",
-        "Assassin": "0369a1",
-        "Support": "047857"
+    function getSvgAvatarDataUri(hero) {
+      const hexColors = {
+        "Marksman": { bg: "#78350f", fg: "#fde68a", border: "#f59e0b" },
+        "Mystic":   { bg: "#4c1d95", fg: "#ddd6fe", border: "#8b5cf6" },
+        "Brawler":  { bg: "#881337", fg: "#fecdd3", border: "#f43f5e" },
+        "Assassin": { bg: "#0c4a6e", fg: "#bae6fd", border: "#0284c7" },
+        "Support":  { bg: "#064e3b", fg: "#a7f3d0", border: "#10b981" }
       };
-      const bg = hexByClass[hero.heroClass] || "1e293b";
-      const initials = encodeURIComponent(hero.name);
-      return `https://placehold.co/160x160/${bg}/f3efe6?text=${initials}`;
+      const theme = hexColors[hero.heroClass] || { bg: "#1e293b", fg: "#f1f5f9", border: "#64748b" };
+      const words = (hero.name || "Hero").split(/[\s&]+/);
+      const initials = words.length > 1
+        ? (words[0][0] + words[1][0]).toUpperCase()
+        : (hero.name || "H").slice(0, 2).toUpperCase();
+
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+        <defs>
+          <linearGradient id="grad-${initials}" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="${theme.bg}"/>
+            <stop offset="100%" stop-color="#0f172a"/>
+          </linearGradient>
+        </defs>
+        <rect width="100" height="100" rx="16" fill="url(#grad-${initials})"/>
+        <rect x="2" y="2" width="96" height="96" rx="14" fill="none" stroke="${theme.border}" stroke-width="2" stroke-opacity="0.7"/>
+        <text x="50" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="34" font-weight="800" fill="${theme.fg}" text-anchor="middle" dominant-baseline="middle">${initials}</text>
+      </svg>`;
+
+      return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+    }
+
+    function handlePortraitError(img, heroName) {
+      const step = parseInt(img.dataset.step || "0", 10);
+      const hero = HEROES_DATA.find(h => h.name === heroName) || { name: heroName, heroClass: "Marksman" };
+      const wikiSlug = encodeURIComponent(hero.name.replace(/ /g, "_"));
+      const cleanSlug = hero.name.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+      const fallbackList = [
+        `https://tracklock.gg/heros/${cleanSlug}_bg.png`,
+        `https://deadlock.wiki/Special:FilePath/${wikiSlug}_icon.png`,
+        `https://deadlock.wiki/Special:FilePath/${wikiSlug}_card.webp`,
+        getSvgAvatarDataUri(hero)
+      ];
+
+      if (step < fallbackList.length) {
+        img.dataset.step = (step + 1).toString();
+        img.src = fallbackList[step];
+      }
     }
 
     function getBuildLinks(hero) {
-      const slug = hero.slug || hero.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+      const rawSlug = hero.slug || hero.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+      const deadlockedSlug = rawSlug === "mo-and-krill" ? "mo-krill" : rawSlug;
       return {
-        deadlocked: `https://deadlocked.gg/heroes/${slug}/builds`,
-        tracklock: `https://tracklock.gg/heroes/${slug}`,
-        deadlockOne: `https://deadlock.one/en/heroes/${slug}`
+        deadlocked: `https://deadlocked.gg/heroes/${deadlockedSlug}`,
+        tracklock: `https://tracklock.gg/heroes/${rawSlug}`,
+        deadlockOne: `https://deadlock.one/en/heroes/${rawSlug}`
       };
     }
 
@@ -1388,8 +1422,8 @@ export default async function handler(req, res) {
       const deltaPositive = hero.wrDelta.startsWith("+");
       const deltaClass = deltaPositive ? "text-emerald-400" : "text-rose-400";
       const portraitUrl = getHeroPortraitUrl(hero);
-      const fallbackUrl = getFallbackAvatarUrl(hero);
       const builds = getBuildLinks(hero);
+      const safeHeroName = hero.name.replace(/'/g, "\\'");
 
       return `
         <article class="rounded-xl bg-slatecard/95 border border-slate-800 hover:border-amber-500/50 transition-all p-4 flex flex-col justify-between shadow-lg group">
@@ -1400,7 +1434,8 @@ export default async function handler(req, res) {
                 <img
                   src="${portraitUrl}"
                   alt="${hero.name} Portrait"
-                  onerror="this.onerror=null;this.src='${fallbackUrl}';"
+                  data-step="0"
+                  onerror="handlePortraitError(this, '${safeHeroName}')"
                   class="w-14 h-14 rounded-xl object-cover bg-obsidian border border-amber-500/40 shadow-md group-hover:scale-105 transition-transform"
                   loading="lazy"
                 />
@@ -1570,16 +1605,43 @@ export default async function handler(req, res) {
 
       // 1. Fetch official hero portraits from public Deadlock Assets API (CORS-enabled)
       try {
-        const assetsRes = await fetch("https://assets.deadlock-api.com/v2/heroes");
-        if (assetsRes.ok) {
+        let assetsRes = await fetch("https://api.deadlock-api.com/v1/assets/heroes").catch(() => null);
+        if (!assetsRes || !assetsRes.ok) {
+          assetsRes = await fetch("https://assets.deadlock-api.com/v2/heroes").catch(() => null);
+        }
+        if (assetsRes && assetsRes.ok) {
           const assetsList = await assetsRes.json();
           if (Array.isArray(assetsList)) {
+            let gotNew = false;
             assetsList.forEach(item => {
-              const portrait = item?.images?.icon_hero_card_webp || item?.images?.icon_hero_card || item?.images?.minimap_image;
-              if (item?.name && portrait) {
-                LIVE_PORTRAIT_CACHE[item.name] = portrait;
-              }
+              const portrait = item?.images?.portrait 
+                || item?.images?.icon_hero_card 
+                || item?.images?.icon_hero_card_webp 
+                || item?.images?.icon_image 
+                || item?.images?.minimap;
+              if (!portrait) return;
+
+              const candidateNames = [
+                item?.display_name,
+                item?.name,
+                item?.name?.replace(/^hero_/, "")
+              ].filter(Boolean);
+
+              HEROES_DATA.forEach(h => {
+                const assetKey = ASSET_HERO_MAP[h.name];
+                const matches = candidateNames.some(c => 
+                  c.toLowerCase() === h.name.toLowerCase() || 
+                  (assetKey && c.toLowerCase() === assetKey.toLowerCase())
+                );
+                if (matches) {
+                  LIVE_PORTRAIT_CACHE[h.name] = portrait;
+                  gotNew = true;
+                }
+              });
             });
+            if (gotNew) {
+              renderHeroes();
+            }
           }
         }
       } catch (_) {
